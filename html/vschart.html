@@ -1,0 +1,25 @@
+<html>
+<head>
+</head>
+<body style="">
+<p>&nbsp;</p>
+<p>
+<meta charset="UTF-8"></meta>
+<title>比較くん</title>
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
+<div data-role="page" id="first">
+	<div data-role="content">	
+		<h1>どっちが人気？</h1>
+		<form action="/vschart.html" method="get">
+比較対象をカンマ区切りで入れてね。過去一ヶ月間のネット上での注目度合いを比較するよ。
+<input type="text" name="q" id="q" size="40" value="{{ q }}"><input type="submit" value="比較する">
+		</form>
+		<div>
+			<img src="{{ url }}" alt="たんぽぽ">
+		</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <title>Sample Page</title>
+    <style>
+	#canv,video {
+       border: solid 3px #000;
+    }
+    </style>
+  </head>
+  <body>
+  <div id="main">
+  <h1>おえかき</h1>
+  <canvas id="canv"  width="320" height="240"></canvas>
+  <video autoplay width="320" height="240" alt="カメラを許可してね。"></video><br/>
+   ↑落書きOK<br/>
+  R:<input type="textbox" id="color_r" value="255" /><br/>
+  G:<input type="textbox" id="color_g" value="0"/><br/>
+  B:<input type="textbox" id="color_b" value="0"/><br/>
+  <button id="gobtn">写真をとる</button> 
+  <button id="dl">画像として書き出す</button> <br/>
+
+  </div>
+     <script>
+      var video = document.querySelector('video');
+      var canvas = document.getElementById('canv');
+      var ctx = canvas.getContext('2d');
+      var mouseon=false;      
+      var bounds = canvas.getBoundingClientRect();
+      var prevpoint={x:0,y:0}
+      var dotcolor='rgb(0, 0, 0)';
+      function putstart(e){
+        ctx.beginPath();
+        ctx.strokeStyle =dotcolor;
+        ctx.fillRect((e.clientX - bounds.left), (e.clientY - bounds.top), 1, 1)         
+        mouseon=true;
+        prevpoint.x=(e.clientX - bounds.left);
+        prevpoint.y= (e.clientY - bounds.top);
+      }
+      function putdot(e){
+        if(mouseon){
+        ctx.beginPath();
+        ctx.moveTo(prevpoint.x, prevpoint.y);
+        ctx.lineTo((e.clientX - bounds.left), (e.clientY - bounds.top));
+        ctx.closePath();
+        ctx.strokeStyle =dotcolor;
+        ctx.lineWidth = 1;
+        ctx.stroke();      
+        prevpoint.x=(e.clientX - bounds.left);
+        prevpoint.y= (e.clientY - bounds.top);
+        }
+      }
+      function putend(e){
+        mouseon=false;
+      }
+      function capt(e){
+        ctx.drawImage(video, 0, 0,video.clientWidth,video.clientHeight);
+      }
+      function setColor() {
+          dotcolor='rgb('+parseInt(document.querySelector('#color_r').value)+', '+parseInt(document.querySelector('#color_g').value)+', '+parseInt(document.querySelector('#color_b').value)+')';
+      }
+      
+      
+      $( document ).ready(function(e) { 
+        window.URL = window.URL || window.webkitURL;
+      	navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia ||
+      								            navigator.mozGetUserMedia || navigator.msGetUserMedia;
+      		navigator.getUserMedia({video: true}, function(stream) {
+          		  video.src = window.URL.createObjectURL(stream);
+          		  localMediaStream = stream;
+          		},function(){alert("error")});
+         setColor(); 
+                
+      });
+      $("#canv").mousedown(putstart);
+      $("#canv").mousemove(putdot);
+      $("#canv").mouseup(putend);
+      $("#canv").mouseout(putend);
+      $("#gobtn").click(capt);
+      $("#color_r").change(setColor);
+      $("#color_g").change(setColor);
+      $("#color_b").change(setColor);
+      
+      
+         
+    </script>
+  
+  
+  
+  
+  </body>
+</html>

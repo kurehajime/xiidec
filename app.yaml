@@ -1,0 +1,41 @@
+application: xiidec
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+handlers:
+
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+
+- url: /(.*\.(gif|png|jpg|js|css|wav))
+  static_files: static/\1
+  upload: static/(.*\.(gif|png|jpg|js|css|wav))
+
+- url: /sample/(.*\.(html))
+  static_files: static/sample/\1
+  upload: static/sample/(.*\.(html))
+
+- url: /test\.html
+  script: test.app
+
+- url: /hello\.html
+  script: hello.app
+
+- url: /markov\.html
+  script: markov.app
+ 
+- url: /vschart\.html
+  script: vschart.app
+  
+- url: /abface\.html
+  script: abface.app
+  
+- url: .*
+  script: main.app
+
+libraries:
+- name: webapp2
+  version: "2.5.2"
