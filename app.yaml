@@ -10,9 +10,13 @@ handlers:
   static_files: favicon.ico
   upload: favicon\.ico
 
-- url: /(.*\.(gif|png|jpg|js|css|wav))
+- url: /myboardgame/(.*\.(html|js|css))
+  static_files: static/myboardgame/\1
+  upload: static/myboardgame/(.*\.(html|js|css))
+
+- url: /(.*\.(gif|png|jpg|js|css|wav|zip))
   static_files: static/\1
-  upload: static/(.*\.(gif|png|jpg|js|css|wav))
+  upload: static/(.*\.(gif|png|jpg|js|css|wav|zip))
 
 - url: /sample/(.*\.(html))
   static_files: static/sample/\1
