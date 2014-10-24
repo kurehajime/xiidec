@@ -10,9 +10,30 @@ handlers:
   static_files: favicon.ico
   upload: favicon\.ico
 
+- url: /colamone/(.*\.(html|js|css))
+  static_files: static/myboardgame/\1
+  upload: static/myboardgame/(.*\.(html|js|css))
+
+
+- url: /colamone_vs/(.*\.(html|js|css))
+  static_files: static/colamone_vs/\1
+  upload: static/colamone_vs/(.*\.(html|js|css))
+
+- url: /colamone_beta/(.*\.(html|js|css|png))
+  static_files: static/colamone_beta/\1
+  upload: static/colamone_beta/(.*\.(html|js|css|png))
+
+- url: /myboardgame/boardgame.html
+  static_files: static/myboardgame/colamone.html
+  upload: static/myboardgame/(.*\.(html|js|css))
+
 - url: /myboardgame/(.*\.(html|js|css))
   static_files: static/myboardgame/\1
   upload: static/myboardgame/(.*\.(html|js|css))
+
+- url: /google9bb6b05fe7c75d83.html
+  static_files: static/google9bb6b05fe7c75d83.html
+  upload: static/google9bb6b05fe7c75d83.html
 
 - url: /(.*\.(gif|png|jpg|js|css|wav|zip))
   static_files: static/\1
@@ -39,7 +60,9 @@ handlers:
   
 - url: .*
   script: main.app
-
 libraries:
 - name: webapp2
   version: "2.5.2"
+  
+inbound_services:
+- warmup

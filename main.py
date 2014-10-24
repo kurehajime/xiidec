@@ -63,8 +63,11 @@ class Morse(webapp2.RequestHandler):
 		template_values = {}
 		path = os.path.join(os.path.dirname(__file__), 'html/morse.html')
 		self.response.out.write(template.render(path, template_values))
-		
+class Warmup(webapp2.RequestHandler):
+	def get(self):
+		self.error(404)
+		return self.response.out.write('404 not found')
 
 app = webapp2.WSGIApplication([
-('/', MainHandler),('/scouter', Scouter),('/snownoise',Snownoise),('/webconv',Webconv),('/oekaki.html',Oekaki),('/gear.html',Gear),('/pzl.html',Pzl),('/vdopzl.html',Vdopzl),('/morse.html',Morse)
+('/', MainHandler),('/scouter', Scouter),('/snownoise',Snownoise),('/webconv',Webconv),('/oekaki.html',Oekaki),('/gear.html',Gear),('/pzl.html',Pzl),('/vdopzl.html',Vdopzl),('/morse.html',Morse),('/_ah/warmup',Warmup)
 ], debug=True)
