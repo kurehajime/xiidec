@@ -7,6 +7,9 @@ var canv_focus=null;
 var canv_pieces=null;
 var canv_hover_piece=null;
 var canv_overlay=null;
+var canv_bk=null;
+var img_bk=null;
+var img_bk_loaded=false;
 var hover_piece=null;
 var cellSize=null;
 var turn_player=null;
@@ -123,6 +126,9 @@ if(storage==null){
             }
         }
 }
+img_bk = new Image();
+img_bk.src = "bk.gif";
+
 //init
 $(function(){
     //初期化
@@ -153,7 +159,12 @@ $(function(){
     canv_overlay.width=ctx.canvas.width;
     canv_overlay.height=ctx.canvas.height;
     
+    canv_bk =document.createElement("canvas");
+    canv_bk.width=ctx.canvas.width;
+    canv_bk.height=ctx.canvas.height;
     
+
+
     cellSize=ctx.canvas.width /6;
     turn_player=1;
 
@@ -208,9 +219,9 @@ $(function(){
     //盤面を初期化
     if(paramObj["init"]){
         startMap= getMapByParam(paramObj["init"]);
-        thisMap=aijs.copyMap(startMap);
+        thisMap=copyMap(startMap);
     }else{
-        startMap=aijs.copyMap(thisMap);
+        startMap=copyMap(thisMap);
     }
     //ログをデコード
     if(paramObj["log"]){
@@ -236,7 +247,10 @@ $(function(){
     }
     
     //描画
-    flush(true);
+    img_bk.onload = function() {
+        img_bk_loaded=true;
+        flush(true);
+    }
     updateMessage();
 
 });
@@ -331,19 +345,19 @@ function ai(){
         p+=1;
     }
     if($("input[name='level']:checked").val()==1){
-        hand=aijs.thinkAI(thisMap,turn_player,2+p)[0][0];  
+        hand=thinkAI(thisMap,turn_player,2+p)[0][0];  
     }else if($("input[name='level']:checked").val()==2){
-        hand=aijs.thinkAI(thisMap,turn_player,3+p)[0][0];  
+        hand=thinkAI(thisMap,turn_player,3+p)[0][0];  
     }else if($("input[name='level']:checked").val()==3){
-        hand=aijs.thinkAI(thisMap,turn_player,4)[0][0];        
+        hand=thinkAI(thisMap,turn_player,4)[0][0];        
     }else{
-        hand=aijs.thinkAI(thisMap,turn_player,5)[0][0];        
+        hand=thinkAI(thisMap,turn_player,5)[0][0];        
     }
     
     if(hand){
         thisMap[hand[1]]=thisMap[hand[0]];
         thisMap[hand[0]]=0;
-        score=aijs.evalMap(thisMap,turn_player);
+        score=evalMap(thisMap,turn_player);
         logArray2.push([hand[0],hand[1]]);
     }
     turn_player=turn_player*-1;
@@ -396,7 +410,8 @@ function flush(initflg){
 
     //盤面を描画
     ctx.drawImage(drawBoard(initflg), 0, 0, ctx.canvas.width, ctx.canvas.height);
-    
+
+
     //テカリを描画
     ctx.drawImage(drawBoard2(initflg), 0, 0, ctx.canvas.width, ctx.canvas.height);
     
@@ -416,9 +431,16 @@ function flush(initflg){
     //メッセージを描画
     ctx.drawImage(drawOverlay(), 0, 0, ctx.canvas.width, ctx.canvas.height);
     
-    
-    
 }
+function drawBk(){
+    var ctx_bk=canv_bk.getContext('2d');
+    if(img_bk_loaded){
+        ctx_bk.drawImage(img_bk,0,0, ctx.canvas.width, ctx.canvas.height,0,0,500,500);
+    }
+    return canv_bk;
+}
+
+
 //フォーカスを描画
 function drawFocus(){
     //選択マスを強調
@@ -489,7 +511,7 @@ function drawBoard(initflg){
             ctx_board.strokeRect(x*cellSize, y*cellSize, cellSize, cellSize);
         }
     }
-    
+
     return canv_board;
 }
 function drawBoard2(initflg){
@@ -540,6 +562,14 @@ function drawPiece(wkCtx,x,y,number,goal){
     
     wkCtx.beginPath();
     wkCtx.fillRect(x+cellSize/10,y+cellSize/10,cellSize-1*cellSize/5,cellSize-1*cellSize/5);
+    
+    //曇りエフェクト
+    if(img_bk_loaded){
+        wkCtx.globalAlpha = 0.35;
+        wkCtx.drawImage(drawBk(true),x+cellSize/10,y+cellSize/10,cellSize-1*cellSize/5,cellSize-1*cellSize/5);
+        
+        wkCtx.globalAlpha = 1;
+    }
     
     //文字を描画。
     if(goal){
@@ -768,7 +798,7 @@ function isNoneNode(wkMap){
         if(wkMap[panel_num]==0){
             continue;
         }
-        var canMove=aijs.getCanMovePanelX(panel_num,wkMap,false);
+        var canMove=getCanMovePanelX(panel_num,wkMap,false);
         if(canMove.length!=0){
             if(wkMap[panel_num]>0){
                 flag1=true;
@@ -799,7 +829,7 @@ function getParam(){
 }
 function getMapByParam(initString){
     if(initString){
-        var wkMap=aijs.copyMap(thisMap);
+        var wkMap=copyMap(thisMap);
         //クリア
         for(var num in wkMap){
             wkMap[num]=0;   
@@ -825,7 +855,7 @@ function getMapByParam(initString){
 //ログをデコードする。
 function decodeLog(logstr,wkInitMap){
     var wklogArray=new Array();
-    var wkMap=aijs.copyMap(wkInitMap);
+    var wkMap=copyMap(wkInitMap);
     var arrow={ "q":0,"w":1,"e":2,
                 "a":3,"s":4,"d":5,
                 "z":6,"x":7,"c":8};
@@ -841,7 +871,7 @@ function decodeLog(logstr,wkInitMap){
         var from=parseInt(logArr[i].match(/\d*/)[0]);
         var to= (Math.floor(from / 10) + Math.floor(arw%3)-1)*10
                 +(Math.floor(from % 10) + Math.floor(arw/3)-1);
-        wkMap=aijs.copyMap(wkMap);
+        wkMap=copyMap(wkMap);
         wkMap[to]=parseInt(wkMap[from]);
         wkMap[from]=0;
         wklogArray.push(wkMap);
@@ -876,27 +906,27 @@ function encodeLog(wklogArray){
 
 function move_start(){
     logPointer=0;
-    thisMap=aijs.copyMap(logArray[logPointer]);
+    thisMap=copyMap(logArray[logPointer]);
     flush(false);
     updateMessage();
 }
 function move_prev(){
     if(logPointer<=0){return;}
     logPointer-=1;
-    thisMap=aijs.copyMap(logArray[logPointer]);
+    thisMap=copyMap(logArray[logPointer]);
     flush(false);
     updateMessage();
 }
 function move_next(){
     if(logPointer+1>logArray.length-1){return;}
     logPointer+=1;
-    thisMap=aijs.copyMap(logArray[logPointer]);
+    thisMap=copyMap(logArray[logPointer]);
     flush(false);
     updateMessage();
 }
 function move_end(){
     logPointer=logArray.length-1;
-    thisMap=aijs.copyMap(logArray[logPointer]);
+    thisMap=copyMap(logArray[logPointer]);
     flush(false);
     updateMessage();
 }
