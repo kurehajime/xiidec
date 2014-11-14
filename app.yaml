@@ -19,9 +19,9 @@ handlers:
   static_files: static/colamone_vs/\1
   upload: static/colamone_vs/(.*\.(html|js|css))
 
-- url: /colamone_beta/(.*\.(html|js|css|png))
+- url: /colamone_beta/(.*\.(html|js|css|png|gif))
   static_files: static/colamone_beta/\1
-  upload: static/colamone_beta/(.*\.(html|js|css|png))
+  upload: static/colamone_beta/(.*\.(html|js|css|png|gif))
 
 - url: /myboardgame/boardgame.html
   static_files: static/myboardgame/colamone.html

@@ -8,6 +8,8 @@ var canv_pieces=null;
 var canv_hover_piece=null;
 var canv_overlay=null;
 var canv_bk=null;
+var canv_cache=null;
+var cache_on=false;
 var img_bk=null;
 var img_bk_loaded=false;
 var hover_piece=null;
@@ -163,7 +165,9 @@ $(function(){
     canv_bk.width=ctx.canvas.width;
     canv_bk.height=ctx.canvas.height;
     
-
+    canv_cache =document.createElement("canvas");
+    canv_cache.width=ctx.canvas.width;
+    canv_cache.height=ctx.canvas.height;
 
     cellSize=ctx.canvas.width /6;
     turn_player=1;
@@ -249,8 +253,13 @@ $(function(){
     //描画
     img_bk.onload = function() {
         img_bk_loaded=true;
-        flush(true);
+        flush(true,false);
     }
+    if(img_bk.width!=0){
+        img_bk_loaded=true;
+        flush(true,false);
+    }
+    
     updateMessage();
 
 });
@@ -258,7 +267,7 @@ $(function(){
 //マウス移動時処理
 function ev_mouseMove(e){
     getMousePosition(e);
-    flush(false);
+    flush(false,true);
 }
 //マウスクリック時処理
 function ev_mouseClick(e){
@@ -277,11 +286,12 @@ function ev_mouseClick(e){
         if(target==hover_piece){
             hover_piece=null;
             updateMessage();
-            flush(false);
+            flush(false,false);
             return;
         }
         var canm=getCanMovePanel(hover_piece);
         if(canm.indexOf (target)>=0){
+            flush(false,true);
             thisMap[target]=thisMap[hover_piece];
             thisMap[hover_piece]=0;
             turn_player=turn_player*-1;
@@ -289,23 +299,20 @@ function ev_mouseClick(e){
             hover_piece=null;
 
             //AIが考える。
-            drawFocus();
             message="thinking..."
-            flush(false);
+            flush(false,false);
             updateMessage();
             if(winner==null){
                 window.setTimeout(function(){
                     ai();   
                     message=""
                     updateMessage();
-                    flush(false);
-                },50);
+                    flush(false,false);
+                },250);
             }
         }        
     }
-    drawFocus();
-//    updateMessage();
-    flush(false);
+    flush(false,false);
 }
 function ev_radioChange(){
     var num = $("input[name='level']:checked").val();
@@ -404,23 +411,39 @@ function getMousePosition(e) {
     mouse_y = e.clientY - rect.top;  
 }  
 //画面描画
-function flush(initflg){
+function flush(initflg,cache_flg){
     var wkMap=$.extend(true,{},thisMap)
     ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.width);
-
-    //盤面を描画
-    ctx.drawImage(drawBoard(initflg), 0, 0, ctx.canvas.width, ctx.canvas.height);
-
-
-    //テカリを描画
-    ctx.drawImage(drawBoard2(initflg), 0, 0, ctx.canvas.width, ctx.canvas.height);
     
-    //選択したコマを除外
-    if(hover_piece!=null){
-        wkMap[hover_piece]=0;
+    if(cache_flg==false){
+        cache_on=false;
     }
-    //コマを表示
-    ctx.drawImage(drawPieceAll(wkMap), 0, 0, ctx.canvas.width, ctx.canvas.height);
+    //キャッシュに保存
+    if(cache_flg==false||cache_on==false){
+        //盤面を描画
+        ctx.drawImage(drawBoard(initflg), 0, 0, ctx.canvas.width, ctx.canvas.height);
+
+        //テカリを描画
+        ctx.drawImage(drawBoard2(initflg), 0, 0, ctx.canvas.width, ctx.canvas.height);
+
+        //選択したコマを除外
+        if(hover_piece!=null){
+            wkMap[hover_piece]=0;
+        }
+        //コマを表示
+        ctx.drawImage(drawPieceAll(wkMap), 0, 0, ctx.canvas.width, ctx.canvas.height);
+        
+        //キャッシュに保存
+        var ctx_canv=canv_cache.getContext('2d');
+        ctx_canv.clearRect(0,0,ctx.canvas.width,ctx.canvas.width);
+        ctx_canv.drawImage(ctx.canvas, 0, 0, ctx.canvas.width, ctx.canvas.height)
+        //キャッシュ有効化
+        cache_on=true;
+    }else{
+        //キャッシュから描画
+        ctx.drawImage(canv_cache, 0, 0, ctx.canvas.width, ctx.canvas.height);
+    }
+    
     
     //選択したコマを表示
     ctx.drawImage(drawHoverPiece(), 0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -907,27 +930,27 @@ function encodeLog(wklogArray){
 function move_start(){
     logPointer=0;
     thisMap=copyMap(logArray[logPointer]);
-    flush(false);
+    flush(false,false);
     updateMessage();
 }
 function move_prev(){
     if(logPointer<=0){return;}
     logPointer-=1;
     thisMap=copyMap(logArray[logPointer]);
-    flush(false);
+    flush(false,false);
     updateMessage();
 }
 function move_next(){
     if(logPointer+1>logArray.length-1){return;}
     logPointer+=1;
     thisMap=copyMap(logArray[logPointer]);
-    flush(false);
+    flush(false,false);
     updateMessage();
 }
 function move_end(){
     logPointer=logArray.length-1;
     thisMap=copyMap(logArray[logPointer]);
-    flush(false);
+    flush(false,false);
     updateMessage();
 }
 function reloadnew(){
