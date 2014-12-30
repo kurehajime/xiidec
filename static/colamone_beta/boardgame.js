@@ -250,16 +250,27 @@ $(function(){
         $("#tweetlog").hide();
     }
     
-    //描画
+    //画像読み込み成功時
     img_bk.onload = function() {
         img_bk_loaded=true;
         flush(true,false);
     }
+    //画像読み込み失敗時
+    img_bk.onerror = function() { 
+        flush(true,false);
+    } 
+    //もう既に読み込み終わってた時
     if(img_bk.width!=0){
         img_bk_loaded=true;
         flush(true,false);
     }
-    
+    // 2.5秒後に強制描画※Googleの検索結果から飛ぶとなぜか描画が走らない事があるので。
+    setTimeout(function() {
+        if(img_bk.width!=0){
+            img_bk_loaded=true;
+        }
+        flush(true,false);
+    }, 2500);  
     updateMessage();
 
 });

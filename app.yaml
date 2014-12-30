@@ -9,10 +9,14 @@ handlers:
 - url: /favicon\.ico
   static_files: favicon.ico
   upload: favicon\.ico
+  
+- url: /humans\.txt
+  static_files: static/humans.txt
+  upload: static/humans\.txt
 
-- url: /colamone/(.*\.(html|js|css))
+- url: /colamone/(.*\.(html|js|css|png|gif))
   static_files: static/myboardgame/\1
-  upload: static/myboardgame/(.*\.(html|js|css))
+  upload: static/myboardgame/(.*\.(html|js|css|png|gif))
 
 
 - url: /colamone_vs/(.*\.(html|js|css))
