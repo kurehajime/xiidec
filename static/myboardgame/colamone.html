@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<HTML>
+    <HEAD>
+        <title>colamone</title>
+        <meta content="text/html" charset="UTF-8">
+        <meta name="viewport" content="width=device-width,user-scalable=no">
+        <meta property="og:title" content="colamone">
+        <meta property="og:type" content="website">
+        <meta property="og:description" content="Colamone is a board game similar to chess.">
+        <meta property="og:url" content="http://xiidec.appspot.com/colamone/colamone.html">
+        <meta property="og:image" content="http://xiidec.appspot.com/img/colamone.png">
+        <meta property="og:site_name" content="Yet another tofu">
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@kurehajime" />
+        <meta name="twitter:creator" content="@kurehajime" />
+        <link rel="author" href="https://plus.google.com/105626742774793809251" />
+        <link rel="stylesheet" type="text/css" href="boardgame.css?2014122501">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js?2014062101"></script>
+        <script type="text/javascript" src="boardgame.js?2014122202"></script>
+        <script type="text/javascript" src="ai.js?2014111108"></script>
+        <script type="text/javascript">
+            function get_lang() {
+                return (navigator.browserLanguage || navigator.language || navigator.userLanguage).substr(0,2).toLowerCase();
+            }
+            function set_manual(){
+                if(get_lang()==="ja"){
+                    var manual=document.getElementById("manual");
+                    manual.innerHTML="【ルール】\n\
+1.各コマは、丸が付いている方向に進めます。\n\
+2.取られたコマは盤上から除かれます。再利用はできません。\n\
+3.一番奥の陣地まで進めると、コマの数字が得点になります。\n\
+4.得点になったコマは動くことも取ることもできません。\n\
+5.先に得点が8点以上になったプレーヤーの勝利です。\n\
+6.ただしどちらかのプレーヤーの動かせるコマが無くなった時は\n\
+　その時点で点数の高いプレーヤーの勝利です。 ";
+                    var canvas= document.getElementById("canv");
+                    if (!canvas || !canvas.getContext) { 
+                        alert("申し訳ございません。お使いのブラウザは対応していません。"); 
+                    }
+                }else{
+                    var manual=document.getElementById("manual");
+                    //Translator:Extractum11
+                    manual.innerHTML="# How to play Colamone\n\
+* Colamone is kinda like chess. Only some loose similarities \n\
+* Each piece can move 1 tile in the direction of any of it's dots. \n\
+* If a piece gets to the other side, you get how many ever points it's worth. \n\
+* If you get 8 points, you win.\n\
+* When a piece gets to the other side, you can no longer move it and the enemy cannot take it. \n\
+* When a player can't make any more moves, whoever has the highest score wins.";
+                }
+                var canvas= document.getElementById("canv");
+                if (!canvas || !canvas.getContext) { 
+                    alert("Sorry. Your browser does not support."); 
+                }
+                    
+            }
+            function setTweet(){
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.async=true;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+            }
+            function zoom(){
+                if(screen.width<500){
+                    var viewport = document.querySelector("meta[name=viewport]");
+    viewport.setAttribute('content', 'width=520,user-scalable=no');
+                }
+                if(screen.height<500){
+                    var viewport = document.querySelector("meta[name=viewport]");
+    viewport.setAttribute('content', 'height=520,user-scalable=no');
+                }
+            }
+        </script>
+    </HEAD>
+    <BODY onLoad="set_manual();setTweet();zoom();">
+        <div id="main">
+            <canvas id="canv" width="500px" height="500px"></canvas>
+            <div id="message">
+                <span id="gamename">colamone</span> by <A Href="https://twitter.com/kurehajime">@kurehajime</A><br/>
+                <b>Turn : </b><span id="turn"></span>(
+                Blue: <span id="blue"></span> / Red: <span id="red"></span> )<br/>
+                <b>Level : </b><input id="level1" type="radio" name="level" value="1"><label for="level1">1</label>
+                <input id="level2" type="radio" name="level" value="2"><label for="level2" checked>2</label>
+                <input id="level3" type="radio" name="level" value="3"><label for="level3">3</label>
+                <input id="level4" type="radio" name="level" value="4"><label for="level4">4</label>
+                <span id="time"></span><span id="wins"></span>
+<span id="log"><br/><button type="button" id="prevprev" onclick="" align="right"> &lt;&lt; </button><button type="button" id="prev" onclick="" align="right"> &lt; </button><button type="button" id="next" onclick="" align="right"> &gt; </button><button type="button" id="nextnext" onclick="" align="right"> &gt;&gt; </button></span>
+<br/><button type="button" id="newgame"  onclick="location.reload()">New game</button>
+<br/><button type="button" id="replay" onclick="" > view log </button>
+<br/><button type="button" id="tweetlog" onclick="" > tweet result </button>
+<pre id="manual"># How to play Colamone
+* Colamone is a board game similar to chess.
+* Players will be able to advance in the direction of the point of each piece.
+* The number of a piece will be scoring if it advances to the position of the other side most. 
+* Piece won the scoring can not be moved, it will be invincible.
+* It is a victory of the player score became 8 or more points.
+* When the movable piece of one is lost, the player high score is winning at that point.</pre>
+<span id="sns"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://xiidec.appspot.com/colamone/colamone.html" data-hashtags="colamone" data-lang="en"></a></span>
+            </div>
+        </div>
+        <IMG src="bk.gif" class="preload">
+    </BODY>
+</HTML>
