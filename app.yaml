@@ -15,8 +15,8 @@ handlers:
   upload: static/humans\.txt
 
 - url: /colamone/(.*\.(html|js|css|png|gif))
-  static_files: static/myboardgame/\1
-  upload: static/myboardgame/(.*\.(html|js|css|png|gif))
+  static_files: static/colamone/\1
+  upload: static/colamone/(.*\.(html|js|css|png|gif))
 
 
 - url: /colamone_vs/(.*\.(html|js|css))
@@ -46,6 +46,10 @@ handlers:
 - url: /sample/(.*\.(html))
   static_files: static/sample/\1
   upload: static/sample/(.*\.(html))
+
+- url: /jasmine/(.*)
+  static_files: static/jasmine/\1
+  upload: static/jasmine/(.*)
 
 - url: /test\.html
   script: test.app
