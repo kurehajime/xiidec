@@ -28,12 +28,12 @@ handlers:
   upload: static/colamone_beta/(.*\.(html|js|css|png|gif))
 
 - url: /myboardgame/boardgame.html
-  static_files: static/myboardgame/colamone.html
-  upload: static/myboardgame/(.*\.(html|js|css))
+  static_files: static/colamone/colamone.html
+  upload: static/colamone/(.*\.(html|js|css))
 
 - url: /myboardgame/(.*\.(html|js|css))
-  static_files: static/myboardgame/\1
-  upload: static/myboardgame/(.*\.(html|js|css))
+  static_files: static/colamone/\1
+  upload: static/colamone/(.*\.(html|js|css))
 
 - url: /google9bb6b05fe7c75d83.html
   static_files: static/google9bb6b05fe7c75d83.html

@@ -48,7 +48,7 @@ describe("Colamone AIのテスト(ざっくり)", function() {
     
   it("とりあえずCPU先手で一手考えてみる", function() {
         var turn_player=1;
-        hand=thinkAI(thisMap,turn_player,3)[0][0];
+        hand=thinkAI(thisMap,turn_player,3)[0];
         expect(hand[0]).isBoardNumber();
         expect(hand[1]).isBoardNumber();
         console.log('先手：'+hand[0]+'→'+hand[1]);
@@ -56,14 +56,14 @@ describe("Colamone AIのテスト(ざっくり)", function() {
   });
   it("とりあえずCPU後手で一手考えてみる", function() {
         var turn_player=1;
-        hand=thinkAI(thisMap,turn_player,3)[0][0];
+        hand=thinkAI(thisMap,turn_player,3)[0];
         expect(hand[0]).isBoardNumber();
         expect(hand[1]).isBoardNumber();
         console.log('後手：'+hand[0]+'→'+hand[1]);
   });
   it("思考レベル4でじっくり考えてみる", function() {
         var turn_player=-1;
-        hand=thinkAI(thisMap,turn_player,5)[0][0];
+        hand=thinkAI(thisMap,turn_player,5)[0];
         expect(hand[0]).isBoardNumber();
         expect(hand[1]).isBoardNumber();
         console.log('レベル4：'+hand[0]+'→'+hand[1]);
@@ -79,7 +79,7 @@ describe("Colamone AIのテスト(ざっくり)", function() {
                 expect(0).toBeTruthy();  
                 break;
             }
-            hand=thinkAI(map,turn_player,3)[0][0];
+            hand=thinkAI(map,turn_player,3)[0];
             map[hand[1]]=map[hand[0]];
             map[hand[0]]=0;
             if(isDraw(map)===true){

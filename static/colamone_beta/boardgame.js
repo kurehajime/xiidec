@@ -363,19 +363,18 @@ function ai(){
         p+=1;
     }
     if($("input[name='level']:checked").val()==1){
-        hand=thinkAI(thisMap,turn_player,2+p)[0][0];  
+        hand=thinkAI(thisMap,turn_player,2+p)[0];  
     }else if($("input[name='level']:checked").val()==2){
-        hand=thinkAI(thisMap,turn_player,3+p)[0][0];  
+        hand=thinkAI(thisMap,turn_player,3+p)[0];  
     }else if($("input[name='level']:checked").val()==3){
-        hand=thinkAI(thisMap,turn_player,4)[0][0];        
+        hand=thinkAI(thisMap,turn_player,4)[0];        
     }else{
-        hand=thinkAI(thisMap,turn_player,5)[0][0];        
+        hand=thinkAI(thisMap,turn_player,5)[0];        
     }
     
     if(hand){
         thisMap[hand[1]]=thisMap[hand[0]];
         thisMap[hand[0]]=0;
-        score=evalMap(thisMap,turn_player);
         logArray2.push([hand[0],hand[1]]);
     }
     turn_player=turn_player*-1;
@@ -391,12 +390,12 @@ function shuffleBoard(){
     var arr=[1,2,3,4,5,6,7,8];
     var red_num=[0,10,20,30,40,50,11,41];
     var blue_num=[55,45,35,25,15,5,44,14];
-    for(var i=0;i<=666;i++){
-        arr.sort(function() {
-                return Math.random() - Math.random();
-            });        
+    for(var i = arr.length-1; i >= 0; i--){
+      var r = Math.floor(Math.random()*(i+1)); 
+      var tmp = arr[i];
+      arr[i] = arr[r];
+      arr[r] = tmp;
     }
-    
     for(var num in blue_num){
         thisMap[blue_num[num]]=arr[num];   
     }

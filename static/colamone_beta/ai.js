@@ -48,6 +48,15 @@ var PIECES={"1":[1,1,1,
                   0,0,0,
                   0,1,0]
            }
+var DEFAULT_EVALPARAM= {1:[1800,1850,1900,1950,2100,2800],
+                2:[1800,1860,1920,2100,2400,3800],
+                3:[1450,1520,1590,1900,2350,4450],
+                4:[1450,1530,1610,2050,2650,5450],
+                5:[1350,1440,1530,2100,2850,6350],
+                6:[1350,1450,1550,2250,3150,7350],
+                7:[1250,1360,1470,2300,3350,8250],
+                8:[1250,1370,1490,2450,4350,11250]
+                 }
 function copyMap(wkMap){
     var rtnMap={};
     //不格好だがループするより高速。
@@ -139,9 +148,7 @@ function isEndX(wkMap,nearwin){
             return -1;
         }
     }
-
-    
-    return 0;   
+    return 0; 
 }
 //最後の一個を取るかどうかの判断
 function isDraw(wkMap){
@@ -165,7 +172,7 @@ function isDraw(wkMap){
     if(wkMap[35]*-1>0){sum2+=wkMap[35];}
     if(wkMap[45]*-1>0){sum2+=wkMap[45];}
     if(wkMap[55]*-1>0){sum2+=wkMap[55];}
-    if(sum1==sum2){
+    if(sum1===sum2){
         return true  ;
     }else{
         return false;   
@@ -178,7 +185,7 @@ function isNoneNode(wkMap){
     var flag1=false;
     var flag2=false;
     for(var panel_num in wkMap){
-        if(wkMap[panel_num]==0){
+        if(wkMap[panel_num]===0){
             continue;
         }
         var canMove=getCanMovePanelX(panel_num,wkMap);
@@ -202,11 +209,9 @@ function getCanMovePanelX(panel_num,wkMap){
     var x = Math.floor(panel_num / 10);
     var y = Math.floor(panel_num % 10);
     var canMove=[];
-    if(number===0){
-        return canMove;   
-    }
-    //アガリのコマは動かしたらダメ。
-    if((number>0 && y===0)||(number<0 && y===5)){
+
+    //アガリのコマは動かしたらダメ。何も無いマスも動かしようがない。
+    if((number>0 && y===0)||(number<0 && y===5)||number===0){
         return canMove;   
     }
     for(var i=0;i<9;i++){
@@ -233,44 +238,34 @@ function getCanMovePanelX(panel_num,wkMap){
 function getNodeMap(wkMap,turn_player){
     var nodeList=[];
     for(var panel_num in wkMap){
-        if(wkMap[panel_num]*turn_player<=0){
+        if(wkMap[panel_num]*turn_player<=0||wkMap[panel_num]===0){
             continue;
         }
         var canMove=getCanMovePanelX(panel_num,wkMap);
-        for(var num in canMove){
+        for(var num =0;num<canMove.length;num++){
             var nodeMap=copyMap(wkMap);
-            var q=[];
-            q.push([panel_num,canMove[num]])
             nodeMap[canMove[num]]=nodeMap[panel_num];
             nodeMap[panel_num]=0;
-            nodeList.push([q,nodeMap]);
+            nodeList.push([[panel_num,canMove[num]],nodeMap]);
         }
     }
     return nodeList;
 }
 
 //盤面を評価して-10000〜+10000で採点数する。
-function evalMap(wkMap,turn_player,nearwin){
+function evalMap(wkMap,turn_player,nearwin,evalparam){
     var ev=0;
     var evMap=copyMap(wkMap);
-    var POSI_BONUS= {1:[1800,1850,1900,1950,2100,2800],
-                    2:[1800,1860,1920,2100,2400,3800],
-                    3:[1450,1520,1590,1900,2350,4450],
-                    4:[1450,1530,1610,2050,2650,5450],
-                    5:[1350,1440,1530,2100,2850,6350],
-                    6:[1350,1450,1550,2250,3150,7350],
-                    7:[1250,1360,1470,2300,3350,8250],
-                    8:[1250,1370,1490,2450,4350,11250]
-                     }
+
     //引き分け判定
     if(isDraw(wkMap)){
         return 0;
     }
     //終局判定
     var end=isEndX(evMap,nearwin);
-    if(end==1){
+    if(end===1){
         return +9999999;
-    }else if(end==-1){
+    }else if(end===-1){
         return -9999999;
     }
     //評価
@@ -281,10 +276,10 @@ function evalMap(wkMap,turn_player,nearwin){
         //コマの評価値を加算
         if(p>0){
             line=5-(panel_num % 10)
-            cell_p+=POSI_BONUS[p][line];//ポジションボーナス
+            cell_p+=evalparam[p][line];//ポジションボーナス
         }else if(p<0){
             line=(panel_num % 10)
-            cell_p+=POSI_BONUS[Math.abs(p)][line]*-1;
+            cell_p+=evalparam[Math.abs(p)][line]*-1;
         }
         //評価値に加算。
         ev+=cell_p;
@@ -292,38 +287,38 @@ function evalMap(wkMap,turn_player,nearwin){
     return parseInt(ev);
 }
 //よく考える。 node=[q,map0]
-function deepThinkAllAB(map,turn_player,depth,a,b,nearwin){
+function deepThinkAllAB(map,turn_player,depth,a,b,nearwin,evalparam){
 	var best_score=turn_player*9999999*-1;
 	var besthand;
-	if(depth==0){
-		best_score=evalMap(map,turn_player,nearwin);
+	if(depth===0){
+		best_score=evalMap(map,turn_player,nearwin,evalparam);
 		return [besthand,best_score]
 	}
-    if(a==undefined||b==undefined){
+    if(a===void 0||b===void 0){
         a=9999999*turn_player*-1
         b=9999999*turn_player
     }
     
     var nodeList= getNodeMap(map,turn_player);
-	for(var i in nodeList){
+	for(var i =0;i<nodeList.length;i++){
         var hand=nodeList[i][0];
 		var map=nodeList[i][1];
         
         //必勝
         var end=isEndX(map,nearwin);
-        if(end==turn_player){
+        if(end===turn_player){
             return [hand,999999*turn_player];
         }
         //必敗
-        if(end==turn_player*-1){
-            if(besthand==undefined){
+        if(end===turn_player*-1){
+            if(besthand===void 0){
                 best_score=999999*turn_player*-1;
                 besthand=hand;
             }
             continue;
         }
-		var sc  =deepThinkAllAB(map,turn_player*-1,depth-1,b,a,nearwin)[1]
-		if(besthand==undefined){
+		var sc  =deepThinkAllAB(map,turn_player*-1,depth-1,b,a,nearwin,evalparam)[1]
+		if(besthand===void 0){
 			best_score=sc;
 			besthand=hand;
 		}        
@@ -345,10 +340,14 @@ function deepThinkAllAB(map,turn_player,depth,a,b,nearwin){
 	return [besthand,best_score]
 }
 
-function thinkAI(map,turn_player,depth,a,b){
+function thinkAI(map,turn_player,depth,a,b,evalparam){
     var nearwin;
+    if(!evalparam){
+        evalparam=DEFAULT_EVALPARAM;
+    }
     if(isEndX(map,false)!=0){
         nearwin=true;
     }
-    return deepThinkAllAB(map,turn_player,depth,a,b,nearwin)
+    
+    return deepThinkAllAB(map,turn_player,depth,a,b,nearwin,evalparam)
 }
