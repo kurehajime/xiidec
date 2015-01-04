@@ -39,16 +39,16 @@ describe("Colamone AIのテスト(ざっくり)", function() {
                        4: 0,14: 0,24: 0,34: 0,44: 8,54: 0,
                        5: 0,15: 0,25: 0,35:-1,45: 0,55: 0,
                   }
-    expect(isEndX(blueWinMap,false)).toBe(1);
-    expect(isEndX(redWinMap,false)).toBe(-1);
-    expect(isEndX(blueWinMap2,false)).toBe(1);
-    expect(isEndX(redWinMap2,false)).toBe(-1);
+    expect(Aijs.isEndX(blueWinMap,false)).toBe(1);
+    expect(Aijs.isEndX(redWinMap,false)).toBe(-1);
+    expect(Aijs.isEndX(blueWinMap2,false)).toBe(1);
+    expect(Aijs.isEndX(redWinMap2,false)).toBe(-1);
 
   });
     
   it("とりあえずCPU先手で一手考えてみる", function() {
         var turn_player=1;
-        hand=thinkAI(thisMap,turn_player,3)[0];
+        hand=Aijs.thinkAI(thisMap,turn_player,3)[0];
         expect(hand[0]).isBoardNumber();
         expect(hand[1]).isBoardNumber();
         console.log('先手：'+hand[0]+'→'+hand[1]);
@@ -56,14 +56,14 @@ describe("Colamone AIのテスト(ざっくり)", function() {
   });
   it("とりあえずCPU後手で一手考えてみる", function() {
         var turn_player=1;
-        hand=thinkAI(thisMap,turn_player,3)[0];
+        hand=Aijs.thinkAI(thisMap,turn_player,3)[0];
         expect(hand[0]).isBoardNumber();
         expect(hand[1]).isBoardNumber();
         console.log('後手：'+hand[0]+'→'+hand[1]);
   });
   it("思考レベル4でじっくり考えてみる", function() {
         var turn_player=-1;
-        hand=thinkAI(thisMap,turn_player,5)[0];
+        hand=Aijs.thinkAI(thisMap,turn_player,5)[0];
         expect(hand[0]).isBoardNumber();
         expect(hand[1]).isBoardNumber();
         console.log('レベル4：'+hand[0]+'→'+hand[1]);
@@ -71,7 +71,7 @@ describe("Colamone AIのテスト(ざっくり)", function() {
   it("CPU同士で一局指して見る(レベル2)", function() {
         var turn_player=1;
         var end;
-        var map=copyMap(thisMap);
+        var map=Aijs.copyMap(thisMap);
         var count=0;
         while(true){
             count+=1;
@@ -79,14 +79,14 @@ describe("Colamone AIのテスト(ざっくり)", function() {
                 expect(0).toBeTruthy();  
                 break;
             }
-            hand=thinkAI(map,turn_player,3)[0];
+            hand=Aijs.thinkAI(map,turn_player,3)[0];
             map[hand[1]]=map[hand[0]];
             map[hand[0]]=0;
-            if(isDraw(map)===true){
+            if(Aijs.isDraw(map)===true){
                 end=0;
                 break;
             }
-            end=isEndX(map,false);
+            end=Aijs.isEndX(map,false);
             if(end===1||end===-1){
                 break;
             }
