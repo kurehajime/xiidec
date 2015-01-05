@@ -14,6 +14,10 @@ handlers:
   static_files: static/humans.txt
   upload: static/humans\.txt
 
+- url: /robots\.txt
+  static_files: static/robots.txt
+  upload: static/robots\.txt
+
 - url: /colamone/(.*\.(html|js|css|png|gif))
   static_files: static/colamone/\1
   upload: static/colamone/(.*\.(html|js|css|png|gif))
