@@ -80,7 +80,7 @@ var PIECES={"1":[1,1,1,
             "-8":[0,0,0,
                   0,0,0,
                   0,1,0]
-           }
+           };
 
 var thisMap={  0:-1,10:-2,20:-3,30:-4,40:-5,50:-6,
                1: 0,11:-8,21: 0,31: 0,41:-7,51: 0,
@@ -88,7 +88,7 @@ var thisMap={  0:-1,10:-2,20:-3,30:-4,40:-5,50:-6,
                3: 0,13: 0,23: 0,33: 0,43: 0,53: 0,
                4: 0,14: 7,24: 0,34: 0,44: 8,54: 0,
                5: 6,15: 5,25: 4,35: 3,45: 2,55: 1,
-              }
+              };
 
 
 var mouse_x =0;
@@ -309,7 +309,9 @@ function ev_mouseClick(e){
 
             //AIが考える。
             message="thinking..."
-            flush(false,false);
+            window.setTimeout(function(){
+                flush(false,false);
+            },50);
             updateMessage();
             if(winner==null){
                 window.setTimeout(function(){
@@ -588,12 +590,19 @@ function drawPiece(wkCtx,x,y,number,goal){
     grad.addColorStop(0,'rgb(255, 255, 255)');    
     grad.addColorStop(0.4,wkColor); 
     grad.addColorStop(1,wkColor);  
+
+    wkCtx.shadowBlur = 10;
+    wkCtx.shadowColor = "rgba(0, 0, 0, 1)";
+    wkCtx.shadowOffsetX = 2;
+    wkCtx.shadowOffsetY = 2;
     wkCtx.fillStyle   = grad;
-    
-    
     wkCtx.beginPath();
     wkCtx.fillRect(x+cellSize/10,y+cellSize/10,cellSize-1*cellSize/5,cellSize-1*cellSize/5);
-    
+    wkCtx.shadowColor= "rgba(0, 0, 0, 0)";; 
+    wkCtx.shadowBlur = 0;
+    wkCtx.shadowOffsetX = 0;
+    wkCtx.shadowOffsetY = 0;
+
     //曇りエフェクト
     if(img_bk_loaded){
         wkCtx.globalAlpha = 0.35;
