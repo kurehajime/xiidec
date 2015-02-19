@@ -35,9 +35,9 @@ handlers:
   static_files: static/colamone/colamone.html
   upload: static/colamone/(.*\.(html|js|css))
 
-- url: /myboardgame/(.*\.(html|js|css))
+- url: /myboardgame/(.*\.(html|js|css|gif))
   static_files: static/colamone/\1
-  upload: static/colamone/(.*\.(html|js|css))
+  upload: static/colamone/(.*\.(html|js|css|gif))
 
 - url: /google9bb6b05fe7c75d83.html
   static_files: static/google9bb6b05fe7c75d83.html
