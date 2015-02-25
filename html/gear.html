@@ -1,5 +1,6 @@
 <html>
 	<head>
+        <meta name="viewport" content="width=device-width,user-scalable=no">
 		<style>
 			.gear_blue {
 				-webkit-animation: do_blue 3s; 
@@ -15,7 +16,11 @@
 			.gears{
 				-webkit-transform: rotateX(60deg) rotateY(-10deg);
 				z-index: -1;
+
 			}
+            .gear{
+                max-width: 50%;
+            }
 			@-webkit-keyframes do_blue {
 				0%   {-webkit-transform:rotate(0deg);}
 				100%   {-webkit-transform:rotate(180deg);}
@@ -24,14 +29,20 @@
 				0%   {-webkit-transform:rotate(17deg);}
 				100%   {-webkit-transform:rotate(-163deg);}
 			}
+            @media (orientation: portrait) {
+                .gear_red{
+                    display: none;   
+                }
+            }
+
 		</style>
 	</head>
 	<body>
-		<div class="gears">
-			<img src="img/gear/gear1.png"  class="gear_blue" style="position: absolute; left: 0px; top: 0px">
-			<img src="img/gear/gear1.png"  class="gear_blue opa" style="position: absolute; left: 0px; top: 60px">
-			<img src="img/gear/gear2.png"  class="gear_red" style="position: absolute; left: 550px; top: 0px">
-			<img src="img/gear/gear2.png"  class="gear_red opa" style="position: absolute; left: 550px; top: 60px">
+		<div class="gears" >
+			<img src="img/gear/gear1.png"  class="gear gear_blue" style="position: absolute; left: 0px; top: 0px">
+			<img src="img/gear/gear1.png"  class="gear gear_blue opa" style="position: absolute; left: 0px; top: 60px">
+			<img src="img/gear/gear2.png"  class="gear gear_red" style="position: absolute; left: 550px; top: 0px">
+			<img src="img/gear/gear2.png"  class="gear gear_red opa" style="position: absolute; left: 550px; top: 60px">
 		</div>
 	</body>
 </html>
