@@ -3,12 +3,12 @@
     <HEAD>
         <title>colamone VS β</title>
         <meta content="text/html" charset="UTF-8">
-        <meta name="viewport" content="width=device-width,user-scalable=no">
+        <meta name="viewport" content="width=device-width">
         <link rel="author" href="https://plus.google.com/105626742774793809251" />
         <link rel="stylesheet" type="text/css" href="boardgame.css">
         <script src="https://skyway.io/dist/0.3/peer.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script type="text/javascript" src="boardgame_vs.js?20141005"></script>
+        <script type="text/javascript" src="boardgame_vs.js?2015030504"></script>
         <script type="text/javascript">
 var peer;
             function get_lang() {
@@ -46,9 +46,27 @@ var peer;
                 }
                     
             }
+         /** 
+         * 小さい画面ではViewportを固定化
+         */
+        function zoom(){
+            var viewport = document.querySelector("meta[name=viewport]");
+            if(screen.width<500&&screen.height<500){
+                if(screen.width<screen.height){
+                    viewport.setAttribute('content', 'width=500,user-scalable=no');
+                }else{
+                    viewport.setAttribute('content', 'height=500,user-scalable=no'); 
+                }
+            }else if(screen.width<500){
+                viewport.setAttribute('content', 'width=500,user-scalable=no');
+            }else if(screen.height<500){
+                viewport.setAttribute('content', 'height=500,user-scalable=no');
+            }
+
+        }
         </script>
     </HEAD>
-    <BODY onLoad="set_manual();" class="body_1">
+    <BODY onLoad="zoom();set_manual();" class="body_1">
         <div id="main">
             <canvas id="canv" width="500px" height="500px"></canvas>
             <div id="message">

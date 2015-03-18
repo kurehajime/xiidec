@@ -26,12 +26,15 @@ html {
 #gamename{
     font-size: 40px;
 }
-#manual{
+.manual{
     font-size: 12px;
     white-space: pre-wrap;
     word-wrap: break-word;
     overflow: auto;   
     max-width: 340px;
+}
+#manual_ja{
+    display: none;
 }
 #prevprev,#prev,#next,#nextnext{
     width: 78px;
@@ -98,7 +101,7 @@ img.preload{
 
     }
     
-    #manual{
+    .manual{
         font-size: 20px !important;
         max-width: 495px;
     }

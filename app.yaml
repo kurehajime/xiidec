@@ -18,9 +18,9 @@ handlers:
   static_files: static/robots.txt
   upload: static/robots\.txt
 
-- url: /colamone/(.*\.(html|js|css|png|gif))
+- url: /colamone/(.*\.(html|js|css|png|gif|json))
   static_files: static/colamone/\1
-  upload: static/colamone/(.*\.(html|js|css|png|gif))
+  upload: static/colamone/(.*\.(html|js|css|png|gif|json))
 
 
 - url: /colamone_vs/(.*\.(html|js|css))
@@ -42,6 +42,10 @@ handlers:
 - url: /google9bb6b05fe7c75d83.html
   static_files: static/google9bb6b05fe7c75d83.html
   upload: static/google9bb6b05fe7c75d83.html
+  
+- url: /BingSiteAuth.xml
+  static_files: static/BingSiteAuth.xml
+  upload: static/BingSiteAuth.xml
 
 - url: /markov2.html
   static_files: static/markov2.html
