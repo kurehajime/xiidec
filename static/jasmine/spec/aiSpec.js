@@ -173,6 +173,6 @@ describe("Colamone AIのテスト(ざっくり)", function() {
         console.log('Player '+end+' WIN');
 
   });
-
-
+    
+    
 });
