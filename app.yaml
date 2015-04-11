@@ -22,6 +22,9 @@ handlers:
   static_files: static/colamone/\1
   upload: static/colamone/(.*\.(html|js|css|png|gif|json))
 
+- url: /ozero/(.*\.(html|js|css|png|gif|json))
+  static_files: static/ozero/\1
+  upload: static/ozero/(.*\.(html|js|css|png|gif|json))
 
 - url: /colamone_vs/(.*\.(html|js|css))
   static_files: static/colamone_vs/\1
