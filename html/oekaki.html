@@ -76,9 +76,23 @@
          setColor(); 
                 
       });
-      $("#canv").mousedown(putstart);
-      $("#canv").mousemove(putdot);
-      $("#canv").mouseup(putend);
+         
+        if('ontouchstart' in window){
+            isTouch=true;
+        }else{
+            isTouch=false;        
+        }
+        //イベントを設定
+        if(isTouch){
+            $("#canv").touchstart(putstart);
+            $("#canv").touchmove (putdot);
+            $("#canv").touchend (putend);
+        }else{
+            $("#canv").mousedown(putstart);
+            $("#canv").mousemove(putdot);
+            $("#canv").mouseup(putend);
+        }
+         
       $("#canv").mouseout(putend);
       $("#gobtn").click(capt);
       $("#color_r").change(setColor);
