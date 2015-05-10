@@ -53,6 +53,10 @@ handlers:
 - url: /markov2.html
   static_files: static/markov2.html
   upload: static/markov2.html
+  
+- url: /reddihop.html
+  static_files: static/reddihop.html
+  upload: static/reddihop.html
 
 - url: /(.*\.(gif|png|jpg|js|css|wav|zip))
   static_files: static/\1
