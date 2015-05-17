@@ -1,0 +1,297 @@
+
+<HTML>
+  <HEAD>
+        <meta name="viewport" content="width=device-width">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<style type="text/css">
+    body {
+        background-color: #000000;
+        border-collapse: collapse;
+        margin: 0px 0px 0px 0px;
+    }
+    
+    #out {
+        position: absolute;
+        text-align: center;
+        margin: 10px 0px 0px 0px;
+        width: 100%;
+    }
+    
+    #table {
+        display: table;
+        margin: 0 auto;
+    }
+    
+    .row {
+        display: table-row;
+    }
+    
+    .row>div {
+        display: table-cell;
+        border: 5px solid;
+    }
+    
+    .pre {
+        display: none;
+    }
+    
+    .BLANK {}
+    
+    .BLANK_EFFECT {
+        opacity: 0.3;
+        -webkit-filter: blur(5px);
+        filter: blur(5px);
+    }
+    
+    #title {
+        width: 100%;
+        background-color: #222222;
+        color: aliceblue;
+    }
+    #footer {
+        width: 100%;
+        background-color: #050505;
+        color:444444;
+    }
+    #submi {
+        color: FFFFFF;
+        font-size: xx-large;
+    }
+    #giveup{
+        margin: 5px;   
+        font-size: x-large;
+    }
+
+</style>
+<Script>
+    var colCount = 3;
+    var answer = ""    
+    var urls=[];
+    var permalinks=[];
+    var titles=[];
+
+    var picURL="";
+    var picNum=0;
+    var complete=false;
+    //タップしたパネルとブランクパネルを入れ替える。
+    function clickPanel(tapPanel, testFlag) {
+        var tempClassName = "";
+        var blankPanel = $("div.BLANK")[0]
+        var rtn=false
+        if(complete===true){
+            return rtn;
+        }
+        //パネル番号を３で割った余りが等しい＝縦列が一緒。パネル番号を３で割った数が等しい＝横行が一緒。
+        if ((tapPanel.dataset.num % colCount == blankPanel.dataset.num % colCount && Math.abs(Math.floor(tapPanel.dataset.num / colCount) - Math.floor(blankPanel.dataset.num / colCount)) == 1) ||
+            (Math.floor(tapPanel.dataset.num / colCount) == Math.floor(blankPanel.dataset.num / colCount) && Math.abs((tapPanel.dataset.num % colCount) - (blankPanel.dataset.num % colCount)) == 1)
+        ) {
+            //クラスを入れ替える。
+            tempClassName = tapPanel.className;
+            tapPanel.className = blankPanel.className;
+            blankPanel.className = tempClassName;
+            rtn=true;
+        }
+        setCSS()
+        
+        if (testFlag && test()) {
+            clear();  
+        }
+        return rtn;
+        
+    }
+
+    function shuffle(count) {
+        var prevBlank = $("div.BLANK")[0]
+        var hit=false;
+        var c=0;
+        while(c<= count) {
+            rand = Math.floor(Math.random() * 9)            
+            hit=clickPanel($("div#cell_"+ rand)[0] , 0);
+            if(hit){
+                c++
+            }
+        }
+    }
+
+    function test() {
+        var nowans = ""
+        for (i = 0; i <= 8; i++) {
+            nowans += $("div#cell_"+ i)[0].className;
+        }
+        if (answer == nowans) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    function reset() {
+        answer="";
+        for (i = 0; i <= 8; i++) {
+            $("div#cell_"+ i)[0].className=$("div#cell_"+ i)[0].dataset.cls;
+            answer += $("div#cell_"+ i)[0].className;
+        }
+        shuffle(5+(Math.random()*4|0));
+    }
+    function clear(){
+       $(".row>div").css("border","0px solid")
+        $(".BLANK").removeClass("BLANK_EFFECT")
+
+
+        complete=true;
+        setTimeout(function(){
+            complete=false;
+            $(".row>div").css("border","5px solid")
+            $(".BLANK").addClass("BLANK_EFFECT")
+            picNum=((picNum+1)%urls.length)
+            $("#preload")[0].src=urls[picNum];
+             $("#submi").attr("href","http://www.reddit.com"+permalinks[picNum]);
+             $("#submi").html(titles[picNum]);
+             $("#preload2")[0].src=urls[((picNum+1)%urls.length)];
+            reset();
+             setTimeout(function(){
+                setCSS();
+             },500)
+        },3000);   
+    }
+    function giveUp(){
+        for (i = 0; i <= 8; i++) {
+            $("div#cell_"+ i)[0].className=$("div#cell_"+ i)[0].dataset.cls;
+        }
+        
+        clear();  
+    }
+    function setCSS() {
+        var dw = $(window).width()*0.8|0
+        var dh = $(window).height()*0.8|0
+        var width=$("#preload")[0].width
+        var height=$("#preload")[0].height
+        var rate=Math.min(dw/width,dh/height);
+        var w=(width*rate/3)|0
+        var h=(height*rate/3)|0
+        
+        if($("div.CELL").css("background")!="url("+$("#preload")[0].src+") 0 0"){
+            $("div.CELL").css("background","url("+$("#preload")[0].src+") 0 0")
+        }
+        if($("div.CELL")[0].width!=w ||$("div.CELL")[0].height!=h){
+            $("div.CELL").css("width",+w+"px")
+            $("div.CELL").css("height",h+"px")
+            $("div.CELL").css("background-size",(w*3)+"px "+(h*3)+"px")
+            
+            $("div.A").css("background-position",(-0*w)+"px "+(-0*h)+"px")
+            $("div.B").css("background-position",(-1*w)+"px "+(-0*h)+"px")
+            $("div.C").css("background-position",(-2*w)+"px "+(-0*h)+"px")
+            $("div.D").css("background-position",(-0*w)+"px "+(-1*h)+"px")
+            $("div.E").css("background-position",(-1*w)+"px "+(-1*h)+"px")
+            $("div.F").css("background-position",(-2*w)+"px "+(-1*h)+"px")
+            $("div.G").css("background-position",(-0*w)+"px "+(-2*h)+"px")
+            $("div.H").css("background-position",(-1*w)+"px "+(-2*h)+"px")
+            $("div.I").css("background-position",(-2*w)+"px "+(-2*h)+"px")
+        }
+    }
+    function getRedditFeed(subre){
+         $.getJSON(
+            "http://www.reddit.com/r/"+subre+".json?jsonp=?&limit=60",
+            function getfeed(data)
+            {
+                urls=[];
+                permalinks=[];
+                titles=[];
+              $.each(
+                data.data.children,
+                function (i, post) {                  
+                    if(post.data.url.indexOf(".gif")!=-1){
+                        urls.push(post.data.url.replace(".gifv",".gif"));
+                        permalinks.push(post.data.permalink)
+                        titles.push(post.data.title)
+                    }
+                }
+              )
+            }
+          ).success(function(){
+             if(urls.length>0){
+                 picNum = Math.floor( Math.random()*urls.length);
+                 $("#preload")[0].src=urls[picNum];
+                 $("#submi").attr("href","http://www.reddit.com"+permalinks[picNum]);
+                 $("#submi").html(titles[picNum]);   
+                 $("#preload2")[0].src=urls[((picNum+1)%urls.length)];
+             }else{
+                alert("no gif")   
+             }
+         }).error(function(){
+                alert("no sub reddit")   
+         });
+    }
+    
+   function keyEnter(e) {
+        if (13 === e.keyCode) {
+            changeSubre();
+        }
+    }
+
+    function changeSubre() {
+        var file = document.location.href.split("?")[0];
+        file = file.split("/")[file.split("/").length - 1];
+        var subrestr = $("#subre").val()
+        window.history.pushState(null, null, file + "?r=" + subrestr);
+        getRedditFeed($("#subre").val());
+    }
+
+    function getParam() {
+        var obj = new Object();
+        if (1 < document.location.search.length) {
+            var paramstr = document.location.search.substring(1).split('&');
+            for (var i = 0; i < paramstr.length; i++) {
+                var entry = paramstr[i].split('=');
+                var key = decodeURIComponent(entry[0]);
+                var value = decodeURIComponent(entry[1]);
+                obj[key] = decodeURIComponent(value);
+            }
+        }
+        return obj;
+    }
+    
+    $(function(){
+        var param = getParam()
+        if (param && param["r"]) {
+            $("#subre").val(param["r"]) ;
+        }
+        $("#subre").keypress(keyEnter);
+        $("#subre").blur(changeSubre) ;
+        reset();
+        picURL=$("#preload")[0].src;
+        getRedditFeed($("#subre").val());
+        setInterval(setCSS,1000);
+        
+    });
+
+</Script>
+  </HEAD>
+  <BODY>
+      <div id="out">
+          <div id="title"><b>GIF PUZZLE</b>   /r/<input type="text" id="subre" value="catgifs"> <br/>  <a href="" id="submi"></a>   </div>
+            <div id="table">
+                <div class="row">
+                    <div id="cell_0" class="CELL A" onClick="clickPanel(this,1)" data-num="0" data-cls="CELL A"></div> 
+                    <div id="cell_1" class="CELL B" onClick="clickPanel(this,1)" data-num="1" data-cls="CELL B"></div>
+                    <div id="cell_2" class="CELL C" onClick="clickPanel(this,1)" data-num="2" data-cls="CELL C"></div>
+                </div>
+                <div class="row">
+                    <div id="cell_3" class="CELL D" onClick="clickPanel(this,1)" data-num="3" data-cls="CELL D"></div> 
+                    <div id="cell_4" class="CELL E" onClick="clickPanel(this,1)" data-num="4" data-cls="CELL E"></div>
+                    <div id="cell_5" class="CELL F" onClick="clickPanel(this,1)" data-num="5" data-cls="CELL F"></div>
+                </div>
+                <div class="row">
+                    <div id="cell_6" class="CELL G" onClick="clickPanel(this,1)" data-num="6" data-cls="CELL G"></div> 
+                    <div id="cell_7" class="CELL H" onClick="clickPanel(this,1)" data-num="7" data-cls="CELL H"></div>
+                    <div id="cell_8" class="CELL I BLANK BLANK_EFFECT" onClick="clickPanel(this,1)" data-num="8" data-cls="CELL I BLANK BLANK_EFFECT">    </div>
+                </div>
+                
+          </div>
+          <button id="giveup" onClick="giveUp()">Give up</button>
+          <div id="footer"><a href="https://xiidec.appspot.com">xiidec.appspot.com</a> by <a href="https://twitter.com/kurehajime">@kurehajime</a></div>
+    </div>
+    <IMG src="./img/now-loading.gif" id="preload" class="pre">
+    <IMG src="" id="preload2" class="pre">
+  </BODY>
+</HTML>

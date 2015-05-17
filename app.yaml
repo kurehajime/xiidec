@@ -58,6 +58,10 @@ handlers:
   static_files: static/reddihop.html
   upload: static/reddihop.html
 
+- url: /gifpzl.html
+  static_files: static/gifpzl.html
+  upload: static/gifpzl.html
+
 - url: /(.*\.(gif|png|jpg|js|css|wav|zip))
   static_files: static/\1
   upload: static/(.*\.(gif|png|jpg|js|css|wav|zip))
