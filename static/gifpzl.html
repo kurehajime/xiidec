@@ -74,12 +74,26 @@
     var picURL="";
     var picNum=0;
     var complete=false;
+    var nowURL="";
+
     //タップしたパネルとブランクパネルを入れ替える。
     function clickPanel(tapPanel, testFlag) {
         var tempClassName = "";
         var blankPanel = $("div.BLANK")[0]
         var rtn=false
         if(complete===true){
+            complete=false;
+            $(".row>div").css("border","5px solid")
+            $(".BLANK").addClass("BLANK_EFFECT")
+            picNum=((picNum+1) % urls.length)
+            $("#preload")[0].src=urls[picNum];
+             $("#submi").attr("href","http://www.reddit.com"+permalinks[picNum]);
+             $("#submi").html(titles[picNum]);
+             $("#preload2")[0].src=urls[((picNum+1) % urls.length)];
+            reset();
+             setTimeout(function(){
+                setCSS();
+             },500)
             return rtn;
         }
         //パネル番号を３で割った余りが等しい＝縦列が一緒。パネル番号を３で割った数が等しい＝横行が一緒。
@@ -140,20 +154,7 @@
 
 
         complete=true;
-        setTimeout(function(){
-            complete=false;
-            $(".row>div").css("border","5px solid")
-            $(".BLANK").addClass("BLANK_EFFECT")
-            picNum=((picNum+1)%urls.length)
-            $("#preload")[0].src=urls[picNum];
-             $("#submi").attr("href","http://www.reddit.com"+permalinks[picNum]);
-             $("#submi").html(titles[picNum]);
-             $("#preload2")[0].src=urls[((picNum+1)%urls.length)];
-            reset();
-             setTimeout(function(){
-                setCSS();
-             },500)
-        },3000);   
+
     }
     function giveUp(){
         for (i = 0; i <= 8; i++) {
@@ -171,7 +172,8 @@
         var w=(width*rate/3)|0
         var h=(height*rate/3)|0
         
-        if($("div.CELL").css("background")!="url("+$("#preload")[0].src+") 0 0"){
+        if($("#preload")[0].src!=nowURL){
+            nowURL=$("#preload")[0].src;
             $("div.CELL").css("background","url("+$("#preload")[0].src+") 0 0")
         }
         if($("div.CELL")[0].width!=w ||$("div.CELL")[0].height!=h){
@@ -211,11 +213,11 @@
             }
           ).success(function(){
              if(urls.length>0){
-                 picNum = Math.floor( Math.random()*urls.length);
+                 picNum = Math.floor( Math.random() * urls.length);
                  $("#preload")[0].src=urls[picNum];
                  $("#submi").attr("href","http://www.reddit.com"+permalinks[picNum]);
                  $("#submi").html(titles[picNum]);   
-                 $("#preload2")[0].src=urls[((picNum+1)%urls.length)];
+                 $("#preload2")[0].src=urls[((picNum+1) % urls.length)];
              }else{
                 alert("no gif")   
              }
