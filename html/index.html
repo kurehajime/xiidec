@@ -1,59 +1,72 @@
 <html>
-    <head>
-        <title>限りなく豆腐に近い豆腐ではない何か</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width">
-        <link type "text/plain" rel "author" href "http://xiidec.appspot.com/humans.txt" />
-        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
-        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-        <style type="text/css">
-            .hero-unit {
-              padding: 60px;
-              margin-bottom: 30px;
-              font-size: 18px;
-              font-weight: 200;
-              line-height: 30px;
-              color: #ffffff;
-              background-color: #0c5232;
-              -webkit-border-radius: 6px;
-                 -moz-border-radius: 6px;
-                      border-radius: 6px;
+
+<head>
+    <title>限りなく豆腐に近い豆腐ではない何か</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link type "text/plain" rel "author" href "http://xiidec.appspot.com/humans.txt" />
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <style type="text/css">
+        .hero-unit {
+            padding: 60px;
+            margin-bottom: 30px;
+            font-size: 18px;
+            font-weight: 200;
+            line-height: 30px;
+            color: #ffffff;
+            background-color: #0c5232;
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
+            border-radius: 6px;
+        }
+        
+        .gear_blue {
+            -webkit-animation: do_blue 3s;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-: rotateX(60deg)
+        }
+        
+        .gear_red {
+            -webkit-animation: do_red 3s;
+            -webkit-animation-iteration-count: infinite;
+        }
+        
+        .opa {
+            opacity: 0.5;
+        }
+        
+        .gears {
+            -webkit-transform: rotateX(60deg) rotateY(-10deg) scale(0.6, 0.6);
+            z-index: -1;
+        }
+        
+        @-webkit-keyframes do_blue {
+            0% {
+                -webkit-transform: rotate(0deg);
             }
-            
-            .gear_blue {
-                -webkit-animation: do_blue 3s; 
-                -webkit-animation-iteration-count: infinite;
-                -webkit-: rotateX(60deg)
+            100% {
+                -webkit-transform: rotate(180deg);
             }
-            .gear_red {
-                -webkit-animation: do_red 3s; 
-                -webkit-animation-iteration-count: infinite;
+        }
+        
+        @-webkit-keyframes do_red {
+            0% {
+                -webkit-transform: rotate(17deg);
             }
-            .opa{
-                opacity:0.5;
+            100% {
+                -webkit-transform: rotate(-163deg);
             }
-            .gears{
-                -webkit-transform: rotateX(60deg) rotateY(-10deg) scale(0.6,0.6);
-                z-index: -1;
-                
-            }
-            @-webkit-keyframes do_blue {
-                0%   {-webkit-transform:rotate(0deg);}
-                100%   {-webkit-transform:rotate(180deg);}
-            }
-            @-webkit-keyframes do_red {
-                0%   {-webkit-transform:rotate(17deg);}
-                100%   {-webkit-transform:rotate(-163deg);}
-            }
-            
-        </style>
-    </head>
-    <body>
-        <div class="container-fluid">
-<div class="hero-unit">
-                <!--
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="hero-unit">
+            <!--
                 <div class="gears">
                     <img src="img/gear/gear1.png"  class="gear_blue" style="position: absolute; left: 0px; top: 0px">
                     <img src="img/gear/gear1.png"  class="gear_blue opa" style="position: absolute; left: 0px; top: 60px">
@@ -61,209 +74,239 @@
                     <img src="img/gear/gear2.png"  class="gear_red opa" style="position: absolute; left: 550px; top: 60px">
                 </div>
                 -->
-                <h2><span  id="title">限りなく豆腐に近い豆腐ではない何か</span></h2>
-    <p>おおむね豆腐と言っても差支えはない。</p>
-</div>
+            <h2><span  id="title">限りなく豆腐に近い豆腐ではない何か</span></h2>
+            <p>おおむね豆腐と言っても差支えはない。</p>
+        </div>
 
-            <div class="row-fluid">
-                <div class="span8">
+        <div class="row-fluid">
+            <div class="span8">
+                <table class="table table-hover">
+                    <tr>
+                        <th>
+                            No.
+                        </th>
+                        <th>
+                            プログラム名
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            000
+                        </td>
+                        <td>
+                            <a href="./colamone/colamone.html">Colamone(コラモネ)</a>
+                            <br/> ルールからプログラム、AIまで自作したボードゲームです。遊んでください。
+                            <a href="./colamone/colamone.html"><img src="img/colamone.png" width="200" height="200">
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            001
+                        </td>
+                        <td>
+                            <a href="./webconv">Webサイトコンバータ</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            002
+                        </td>
+                        <td>
+                            <a href="./test.html">簡易掲示板</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            003
+                        </td>
+                        <td>
+                            <a href="./oekaki.html">らくがき</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            004
+                        </td>
+                        <td>
+                            <a href="./markov.html">要約くん</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            005
+                        </td>
+                        <td>
+                            <a href="./vschart.html?q=犬%2C猫">比較くん</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            006
+                        </td>
+                        <td>
+                            <a href="./abface.html">AくんBくん</a>
+                            <br/>
+                            <a href="./abface.html"><img src="img/ab_tile.png">
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            007
+                        </td>
+                        <td>
+                            <a href="./gear.html">ギア</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            008
+                        </td>
+                        <td>
+                            <a href="./pzl.html">9パズル</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            009
+                        </td>
+                        <td>
+                            <a href="./vdopzl.html">ビデオパズル</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            010
+                        </td>
+                        <td>
+                            <a href="./morse.html">モールス信号</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            011
+                        </td>
+                        <td>
+                            <a href="./colamone/colamone.html">Colamone(ボードゲーム)</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            012
+                        </td>
+                        <td>
+                            <a href="./colamone_vs/colamone_vs.html">Colamone VS</a>
+                            <br/> Colamoneのオンライン対応版です。
+                            <a href="./colamone_vs/colamone_vs.html"><img src="img/colamone_vs_tile.png">
+                            </a>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            013
+                        </td>
+                        <td>
+                            <a href="./jasmine/SpecRunner.html">Colamone Test</a>
+                            <br/> ColamoneのTESTページ。
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            013
+                        </td>
+                        <td>
+                            <a href="./reddihop.html?r=newsokur">Reddihop</a>
+                            <br/> Redditの新着がぴょんぴょん跳ねる。
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            014
+                        </td>
+                        <td>
+                            <a href="./gifpzl.html">Gif PUZZLE</a>
+                            <br/> Redditのgifアニメでパズル。
+                            <a href="./gifpzl.html"><img src="img/gifpzl.png">
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            015
+                        </td>
+                        <td>
+                            <a href="http://kurehajime.github.io/rebbot/?u=kurehajime">Rebbot</a>
+                            <br/> RedditのユーザーコメントからBOTを自動生成。
+                            <a href="http://kurehajime.github.io/rebbot/?u=kurehajime"><img src="https://cloud.githubusercontent.com/assets/4569916/8143472/a185174e-11e9-11e5-88e4-000e3ebd8913.png">
+                            </a>
+                        </td>
+                    </tr>
+
+                </table>
+
+
+            </div>
+            <div class="span4">
+                <div class="row-fluid">
                     <table class="table table-hover">
                         <tr>
                             <th>
-                            No.
-                            </th>
-                            <th>
-                            プログラム名
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>
-                                000
-                            </td>
-                            <td>
-                                <a href="./colamone/colamone.html">Colamone(コラモネ)</a> <br/>
-                                ルールからプログラム、AIまで自作したボードゲームです。遊んでください。
-                                <a href="./colamone/colamone.html"><img src="img/colamone.png" width="200" height="200"></a> 
-                            </td>
-                        </tr>                        <tr>
-                            <td>
-                            001
-                            </td>
-                            <td>
-                           <a href="./webconv">Webサイトコンバータ</a> 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                            002
-                            </td>
-                            <td>
-                           <a href="./test.html">簡易掲示板</a> 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                003
-                            </td>
-                            <td>
-                                <a href="./oekaki.html">らくがき</a> 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                004
-                            </td>
-                            <td>
-                                <a href="./markov.html">要約くん</a> 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                005
-                            </td>
-                            <td>
-                                <a href="./vschart.html?q=犬%2C猫">比較くん</a> 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                006
-                            </td>
-                            <td>
-                                <a href="./abface.html">AくんBくん</a> <br/>
-                                <a href="./abface.html"><img src="img/ab_tile.png" ></a> 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                007
-                            </td>
-                            <td>
-                                <a href="./gear.html">ギア</a> 
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td>
-                                008
-                            </td>
-                            <td>
-                                <a href="./pzl.html">9パズル</a> 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                009
-                            </td>
-                            <td>
-                                <a href="./vdopzl.html">ビデオパズル</a> 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                010
-                            </td>
-                            <td>
-                                <a href="./morse.html">モールス信号</a> 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                011
-                            </td>
-                            <td>
-                                <a href="./colamone/colamone.html">Colamone(ボードゲーム)</a> 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                012
-                            </td>
-                            <td>
-                                <a href="./colamone_vs/colamone_vs.html">Colamone VS</a> <br/>
-                                Colamoneのオンライン対応版です。
-                                <a href="./colamone_vs/colamone_vs.html"><img src="img/colamone_vs_tile.png" ></a> 
-
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                013
-                            </td>
-                            <td>
-                                <a href="./jasmine/SpecRunner.html">Colamone Test</a> <br/>
-                                ColamoneのTESTページ。
-
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                013
-                            </td>
-                            <td>
-                                <a href="./reddihop.html?r=newsokur">Reddihop</a> <br/>
-                                Redditの新着がぴょんぴょん跳ねる。
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                014
-                            </td>
-                            <td>
-                                <a href="./gifpzl.html">Gif PUZZLE</a> <br/>
-                                Redditのgifアニメでパズル。
-                                <a href="./gifpzl.html"><img src="img/gifpzl.png" ></a> 
-                            </td>
-                        </tr>
-                 </table>
-                
-                
-                </div>
-                <div class="span4" >
-                    <div class="row-fluid">
-                        <table class="table table-hover">
-                            <tr>
-                                <th>
                                 リンク
-                                </th>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="http://chmodarwx.hatenablog.com">オリジナルボードゲームColamone開発ブログ(自分のブログ)</a> 
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="https://github.com/kurehajime">Github-kurehajime(自分のアカウント)</a> 
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="http://mogera.jp/">モゲラ</a> 
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="http://f-game.jp/">フリーゲーム総合サイト</a> 
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="http://chibicon.net">無料ゲーム総合サイト</a> 
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="http://webcurtaincall.com/">WebCurtainCall(友人サイト)</a> 
-                                </td>
-                            </tr>
-                        </table>
-                <a class="twitter-timeline" href="//twitter.com/kurehajime" data-widget-id="348755749041741825">@kurehajime からのツイート</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-                    </div>
-                </div>                
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="http://chmodarwx.hatenablog.com">オリジナルボードゲームColamone開発ブログ(自分のブログ)</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="https://github.com/kurehajime">Github-kurehajime(自分のアカウント)</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="http://mogera.jp/">モゲラ</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="http://f-game.jp/">フリーゲーム総合サイト</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="http://chibicon.net">無料ゲーム総合サイト</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="http://webcurtaincall.com/">WebCurtainCall(友人サイト)</a>
+                            </td>
+                        </tr>
+                    </table>
+                    <a class="twitter-timeline" href="//twitter.com/kurehajime" data-widget-id="348755749041741825">@kurehajime からのツイート</a>
+                    <script>
+                        ! function (d, s, id) {
+                            var js, fjs = d.getElementsByTagName(s)[0],
+                                p = /^http:/.test(d.location) ? 'http' : 'https';
+                            if (!d.getElementById(id)) {
+                                js = d.createElement(s);
+                                js.id = id;
+                                js.src = p + "://platform.twitter.com/widgets.js";
+                                fjs.parentNode.insertBefore(js, fjs);
+                            }
+                        }(document, "script", "twitter-wjs");
+                    </script>
+                </div>
             </div>
         </div>
-       by <a href="https://plus.google.com/105626742774793809251?rel=author">kurehajime</a>
-          </body>
+    </div>
+    by <a href="https://plus.google.com/105626742774793809251?rel=author">kurehajime</a>
+</body>
+
 </html>
