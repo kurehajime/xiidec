@@ -325,6 +325,17 @@ $(function(){
         }else if(screen.height<500){
             viewport.setAttribute('content', 'height=500,user-scalable=no');
         }
+        //iOS9のViewportはなぜか機能してくれない。
+        if(/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream){
+            var rate=Math.round((screen.width/520)*1000) / 1000.0;
+            if(rate==Math.round(rate)){//iOS 9のViewportは整数指定すると機能しない
+                rate+=0.0001;
+            }
+            viewport.setAttribute(
+                'content', 
+                'initial-scale='+rate+', minimum-scale='+rate+', maximum-scale='+rate+', user-scalable=no'
+                );
+        }
 
     }
     
