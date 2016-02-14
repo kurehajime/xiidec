@@ -112,7 +112,7 @@ $(function(){
                    5: 6,15: 5,25: 4,35: 3,45: 2,55: 1
                   };
     var map_list={};
-    var LIMIT_1000DAY=5;
+    var LIMIT_1000DAY=3;
     var mouse_x =0;
     var mouse_y =0;
     var startMap;
@@ -1019,7 +1019,11 @@ $(function(){
                 storage.setItem('level_'+$("#level option:selected").val(),0);
                 endgame();
             }else if(winner==0){
-                message="-- Draw --"
+                 if(map_list[JSON.stringify(thisMap)]>=LIMIT_1000DAY){
+                     message="3fold repetition"
+                 }else{
+                    message="-- Draw --"
+                 }
                 endgame();
             }
         }
