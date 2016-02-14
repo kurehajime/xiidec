@@ -911,7 +911,7 @@ $(function(){
      */
     function drawOverlay(){
         var ctx_overlay=canv_overlay.getContext('2d');
-        var x = cellSize*1.5
+        var x = cellSize*1.3
         var y = cellSize*2.5
 
         ctx_overlay.clearRect(0,0,ctx.canvas.width,ctx.canvas.width);
@@ -927,7 +927,7 @@ $(function(){
         ctx_overlay.globalAlpha = 0.8;
         ctx_overlay.fillStyle = COLOR_WHITE;
         ctx_overlay.beginPath();
-        ctx_overlay.fillRect(x,y,cellSize*3,cellSize*1);
+        ctx_overlay.fillRect(x,y,cellSize*3.4,cellSize*1);
         ctx_overlay.fill();
 
         var fontsize=Math.round(cellSize*0.36);
