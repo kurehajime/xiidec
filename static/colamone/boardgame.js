@@ -816,7 +816,7 @@ $(function(){
         }else{
             wkColor=COLOR_RED;           
         }
-        
+
         var grad  = ctx.createLinearGradient(x,y, x+cellSize,y+cellSize);
         grad.addColorStop(0,'rgb(255, 255, 255)');    
         grad.addColorStop(0.4,wkColor); 
@@ -878,7 +878,21 @@ $(function(){
             wkCtx.arc(x_dot, y_dot, cellSize*0.06, 0, Math.PI*2, false);
             wkCtx.fill();
         }
-
+        if(goal){ //得点を印字
+            wkCtx.shadowBlur = 10;
+            wkCtx.shadowColor = "rgba(0, 0, 0, 1)";
+            wkCtx.globalAlpha = 1;
+            wkCtx.fillStyle   = COLOR_WHITE;        
+            fontsize=Math.round(cellSize*0.5);
+            wkCtx.textBaseline ="middle";
+            wkCtx.textAlign="center";
+            wkCtx.font = "bolder "+fontsize+"pt Arial ";
+            wkCtx.beginPath();
+            wkCtx.fillText(Math.abs(number), x+(cellSize/2), y+(cellSize/2));
+            wkCtx.globalAlpha = 1;
+            wkCtx.shadowColor= "rgba(0, 0, 0, 0)";; 
+            wkCtx.shadowBlur = 0;
+        }
 
         return wkCtx;
 
