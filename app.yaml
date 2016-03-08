@@ -18,9 +18,15 @@ handlers:
   static_files: static/robots.txt
   upload: static/robots\.txt
 
-- url: /colamone/(.*\.(html|js|css|png|gif|json))
+- url: /colamone/(.*\.(html|js|json))
   static_files: static/colamone/\1
-  upload: static/colamone/(.*\.(html|js|css|png|gif|json))
+  upload: static/colamone/(.*\.(html|js|json))
+  expiration: "1d"
+
+- url: /colamone/(.*\.(css|png|gif))
+  static_files: static/colamone/\1
+  upload: static/colamone/(.*\.(css|png|gif))
+  expiration: "7d"
 
 - url: /ozero/(.*\.(html|js|css|png|gif|json))
   static_files: static/ozero/\1
