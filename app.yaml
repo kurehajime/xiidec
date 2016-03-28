@@ -18,16 +18,26 @@ handlers:
   static_files: static/robots.txt
   upload: static/robots\.txt
 
-- url: /colamone/(.*\.(html|js|json))
+- url: /colamone/(.*\.(html))
   static_files: static/colamone/\1
-  upload: static/colamone/(.*\.(html|js|json))
+  upload: static/colamone/(.*\.(html))
   expiration: "1d"
 
-- url: /colamone/(.*\.(css|png|gif))
+- url: /colamone/(.*\.(js|json))
   static_files: static/colamone/\1
-  upload: static/colamone/(.*\.(css|png|gif))
+  upload: static/colamone/(.*\.(js|json))
   expiration: "7d"
 
+- url: /colamone/(.*\.(css))
+  static_files: static/colamone/\1
+  upload: static/colamone/(.*\.(css))
+  expiration: "14d"
+
+- url: /colamone/(.*\.(png|gif))
+  static_files: static/colamone/\1
+  upload: static/colamone/(.*\.(png|gif))
+  expiration: "60d"
+  
 - url: /ozero/(.*\.(html|js|css|png|gif|json))
   static_files: static/ozero/\1
   upload: static/ozero/(.*\.(html|js|css|png|gif|json))
