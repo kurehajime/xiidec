@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var fs = require('fs');
-var uglify = require('gulp-uglify');
 var inlinesource = require('gulp-inline-source');
 
 gulp.task('colamone', function() {
@@ -28,6 +27,5 @@ gulp.task('colamone', function() {
 gulp.task('watch', function() {
   gulp.watch('../colamone_js/*', ['colamone']);
 });
-
 
 gulp.task('default', ['colamone']);
