@@ -31,9 +31,9 @@ handlers:
   upload: static/colamone/(.*\.(css))
   expiration: "14d"
 
-- url: /colamone/(.*\.(png|gif|woff|woff2))
+- url: /colamone/(.*\.(png|gif|jpg|woff|woff2))
   static_files: static/colamone/\1
-  upload: static/colamone/(.*\.(png|gif|woff|woff2))
+  upload: static/colamone/(.*\.(png|gif|jpg|woff|woff2))
   expiration: "60d"
   
 - url: /ozero/(.*\.(html|js|css|png|gif|json))
