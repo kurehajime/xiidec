@@ -1,1 +1,1 @@
-this.addEventListener("fetch",function(t){});
+var version="201811282329";self.addEventListener("install",function(e){caches.keys().then(function(e){for(var n in e)e[n]!==version&&caches.delete(e[n])})}),self.addEventListener("fetch",function(t){t.respondWith(caches.match(t.request).then(function(e){return void 0===e||navigator.onLine?fetch(t.request).then(function(e){var n=e.clone();return caches.open(version).then(function(e){0===t.request.url.indexOf("http")&&e.put(t.request,n)}),e}):e}))});
