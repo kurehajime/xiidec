@@ -31,7 +31,7 @@ class Markov(webapp2.RequestHandler):
 		
 	def get_2ch(self):
 		titles = ""
-		response = urllib.urlopen('http://fox.2ch.net/poverty/subject.txt')
+		response = urllib.urlopen('https://leia.5ch.net/poverty/subject.txt')
 		html = unicode(response.read(), "cp932", 'ignore').encode("utf-8")
 		for line in html.split("\n"):
 			if line != "":
