@@ -1,1 +1,31 @@
-var version="201905022112";self.addEventListener("install",function(e){caches.keys().then(function(e){for(var n in e)e[n]!==version&&caches.delete(e[n])})}),self.addEventListener("fetch",function(t){0===t.request.url.indexOf(location.origin)&&t.respondWith(caches.match(t.request).then(function(e){return void 0===e||navigator.onLine?fetch(t.request).then(function(e){var n=e.clone();return caches.open(version).then(function(e){0===t.request.url.indexOf("http")&&e.put(t.request,n)}),e}):e}))});
+/* @license Copyright (c) @kurehajime / source code: https://github.com/kurehajime/colamone_js */
+let version = '202002252116';
+self.addEventListener('install', function(event) {
+  caches.keys().then(function(names) {
+    for (let i in names){
+      if(names[i]!==version){
+        caches.delete(names[i]);
+      }
+    }
+  });
+});
+
+self.addEventListener('fetch', function(event) {
+  if (event.request.url.indexOf(location.origin) === 0) {
+    event.respondWith(caches.match(event.request).then(function(response) {
+      if (response !== undefined && !navigator.onLine) {
+        return response;
+      } else {
+        return fetch(event.request).then(function (response) {
+          let responseClone = response.clone();        
+          caches.open(version).then(function (cache) {
+            if((event.request.url.indexOf('http') === 0)){
+              cache.put(event.request, responseClone);
+            }
+          });
+          return response;
+        });
+      }
+    }));
+  }
+});
