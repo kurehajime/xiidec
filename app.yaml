@@ -1,6 +1,9 @@
 runtime: python27
 api_version: 1
 threadsafe: yes
+automatic_scaling:
+  min_instances: 1
+  max_instances: 3
 
 handlers:
 
