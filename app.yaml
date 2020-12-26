@@ -2,8 +2,8 @@ runtime: python27
 api_version: 1
 threadsafe: yes
 automatic_scaling:
-  min_instances: 1
-  max_instances: 3
+  min_idle_instances: 1
+  max_instances: 2
 
 handlers:
 
@@ -34,11 +34,17 @@ handlers:
   upload: static/colamone/(.*\.(css))
   expiration: "14d"
 
-- url: /colamone/(.*\.(png|gif|jpg|woff|woff2))
+- url: /colamone/(.*\.(png|gif|jpg))
   static_files: static/colamone/\1
   upload: static/colamone/(.*\.(png|gif|jpg|woff|woff2))
   expiration: "60d"
   
+- url: /colamone/(.*\.(woff|woff2))
+  static_files: static/colamone/\1
+  upload: static/colamone/(.*\.(png|gif|jpg|woff|woff2))
+  expiration: "120d"
+  
+
 - url: /ozero/(.*\.(html|js|css|png|gif|json))
   static_files: static/ozero/\1
   upload: static/ozero/(.*\.(html|js|css|png|gif|json))
