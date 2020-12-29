@@ -11,10 +11,7 @@ import urllib
 class Markov(webapp2.RequestHandler):
 	def get(self):
 		mes=""
-		if self.request.get('mode')=="2ch":
-			mes=self.get_2ch()
-		else:
-			mes=self.get_hotentry_title()
+		mes=self.get_hotentry_title()
 		
 		template_values={
 		'mes':mes

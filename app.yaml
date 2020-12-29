@@ -24,9 +24,9 @@ handlers:
   upload: static/colamone/(.*\.(html))
   expiration: "1d"
 
-- url: /colamone/(.*\.(js|json))
+- url: /colamone/(.*\.(js|json|map))
   static_files: static/colamone/\1
-  upload: static/colamone/(.*\.(js|json))
+  upload: static/colamone/(.*\.(js|json|map))
   expiration: "7d"
 
 - url: /colamone/(.*\.(css))
