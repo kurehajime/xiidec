@@ -840,17 +840,9 @@ function init_peer(){
     if(peer&&!peer.disconnected){
         disconnect();
     }
-    if(!util.supports.data){
-        alert("Sorry. This browser does not support.\nPlease play with AI.");
-        location.href ="http://xiidec.appspot.com/colamone/colamone.html"
-
-    }
     
-    if(location.host.indexOf("localhost")!=-1){
-        apikey='6165842a-5c0d-11e3-b514-75d3313b9d05';
-    }else{
-        apikey='69faa3ba-f08f-11e3-b507-6fcc8611e424';
-    }
+
+    apikey='12c750c6-e688-43ed-9786-cf68767d6e96';
     status=STATUS_OFFER;
     peer = new Peer({key   : apikey,debug : 3});
     peer.on('open', function(id){
