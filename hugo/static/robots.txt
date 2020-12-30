@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /jasmine/SpecRunner.html
+Disallow: /colamone_beta/

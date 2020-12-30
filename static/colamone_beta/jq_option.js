@@ -1,1 +1,0 @@
-$(document).bind("mobileinit",function(){$.mobile.pushStateEnabled=!1});

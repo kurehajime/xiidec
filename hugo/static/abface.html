@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+		<title>ABface</title>
+		<style>
+			#canv1,#canv2 {
+				border: solid 3px #000;
+				border-radius: 25px 25px 25px 25px / 25px 25px 25px 25px;
+				border-color: #ff0000;
+			}
+			#canv2 {
+				border: solid 3px #000;
+				border-radius: 25px 25px 25px 25px / 25px 25px 25px 25px;
+				border-color: #0000ff;
+			}
+			#canv1:hover {
+				box-shadow: 0px 0px 20px 5px #ff0000
+			}
+			#canv2:hover {
+				box-shadow: 0px 0px 20px 5px #0000ff
+			}
+			#main {  
+				width: 100%;
+				text-align : center 
+			}
+			.hid{
+				display:none;
+			}
+		</style>
+	</head>
+	<body>
+<div id="main">
+<h1><span style="color:#ff0000">A</span> or <span style="color:#0000ff">B</span></h1>
+<canvas id="canv1"  width="150" height="150"></canvas>
+　　<canvas id="canv2"  width="150" height="150"></canvas>
+</div>
+<form action="/abface.html" method="post" id ="frm">
+	<input type="text" name="choice" id="choice" value="" style="display:none">
+	<input type="text" name="sel" id="sel" value="" style="display:none">
+</form>
+<img src="img/face/{{ brow1 }}" id ="brow_1" class="hid">
+<img src="img/face/{{ eye1 }}" id ="eye_1" class="hid">
+<img src="img/face/{{ nose1 }}" id ="nose_1" class="hid">
+<img src="img/face/{{ mouth1 }}" id ="mouse_1" class="hid">
+<img src="img/face/{{ brow2 }}" id ="brow_2" class="hid">
+<img src="img/face/{{ eye2 }}" id ="eye_2" class="hid">
+<img src="img/face/{{ nose2 }}" id ="nose_2" class="hid">
+<img src="img/face/{{ mouth2 }}" id ="mouse_2" class="hid">
+<script>
+var ctx1 = document.getElementById('canv1').getContext('2d');
+var ctx2 = document.getElementById('canv2').getContext('2d');
+var face1 = "{{ face1 }}"
+var face2 = "{{ face2 }}"
+function makeface(){
+	ctx1.drawImage(document.getElementById('brow_1'), 0, 0)
+	ctx1.drawImage(document.getElementById('eye_1'), 0, 25)
+	ctx1.drawImage(document.getElementById('nose_1'), 0, 50)
+	ctx1.drawImage(document.getElementById('mouse_1'), 0, 110)
+	ctx2.drawImage(document.getElementById('brow_2'), 0, 0)
+	ctx2.drawImage(document.getElementById('eye_2'), 0, 25)
+	ctx2.drawImage(document.getElementById('nose_2'), 0, 50)
+	ctx2.drawImage(document.getElementById('mouse_2'), 0, 110)
+}
+window.onload = function(){
+	makeface()
+		$("#canv1").bind("click",function(){
+			ctx1.beginPath();
+			ctx1.lineWidth = 10;
+			ctx1.strokeStyle="#ff0000"; 
+			ctx1.arc(75, 75, 50, 0, Math.PI*2, false)
+			ctx1.stroke();
+			$("#choice").val(face1);
+			$("#sel").val("A");
+			$('#frm').submit();
+	});
+		$("#canv2").bind("click",function(){
+			ctx2.beginPath();
+			ctx2.strokeStyle="#0000ff"; 
+			ctx2.lineWidth = 10;  
+			ctx2.arc(75, 75, 50, 0, Math.PI*2, false)
+			ctx2.stroke();
+			$("#choice").val(face2);
+			$("#sel").val("B");
+			$('#frm').submit();
+	});
+}
+</script>
+	</body>
+</html>

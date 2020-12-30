@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>reddihop</title>
+    <meta content="text/html" charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <style>
+        body {
+            margin: 0px;
+        }
+        
+        #box {
+            position: absolute;
+            text-align: center;
+            margin-top: 10px;
+            width: 100%;
+        }
+        
+        #subre {
+            font-size: 30px;
+            width: 300px;
+            border-radius: 7px;
+            -webkit-border-radius: 7px;
+            -moz-border-radius: 7px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="feed"></div>
+    <div id="box">
+            <input type="text" id="subre" placeholder="/r/xxxxxx" value="/r/all"> 
+    </div>
+
+    <canvas id="canv" width="600" height="300"></canvas>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+        var canvas = document.getElementById("canv");
+        var subreElem = document.getElementById("subre");
+        var timer;
+        var ctx = canvas.getContext("2d");
+        var p;
+        var objs = [];
+        var c_w = canvas.width;
+        var c_h = canvas.height;
+        var count = 0;
+        var MAX_WORD = 3;
+        var entries = [];
+        var COLORS = ["#dddddd",
+            "#7acc28",
+            "#cc6628",
+            "#288ecc",
+            "#b7cc28",
+            "#cc2866",
+            "#28cccc"
+           ]
+        var BGCOLOR = "#333333";
+
+
+        function initialize(e, retry) {
+            var subre = document.getElementById("subre").value;
+            var RSSURL = "https://www.reddit.com" + subre + "/new/.rss";
+            var url = RSSURL + "?dummy=" + (new Date()).getTime()
+            if (retry) {
+                url = RSSURL;
+            }
+            var feed = new google.feeds.Feed(url);
+
+            feed.setNumEntries(20);
+            feed.load(function (result) {
+                if (!result.error) {
+                    var container = document.getElementById("feed");
+                    entries = [];
+                    for (var i = 0; i < result.feed.entries.length; i++) {
+                        var entry = result.feed.entries[i];
+                        entries.push(entry)
+                    }
+                    addWord();
+                } else {
+                    if (retry) {
+                        alert(result.error.message + "\n" + url);
+                    } else {
+                        initialize(true);
+                    }
+
+                }
+            });
+        }
+
+
+
+        function main() {
+            if (objs.length <= 0) {
+                return
+            }
+            ctx.clearRect(0, 0, c_w, c_h);
+            ctx.fillStyle = BGCOLOR;
+            ctx.fillRect(0, 0, c_w, c_h)
+            for (var i = objs.length - 1; i >= 0; i--) {
+                objs[i].update();
+                put(objs[i])
+            }
+            for (var i = objs.length - 1; i >= 0; i--) {
+                if (objs[i].dead()) {
+                    objs.splice(i, 1);
+                }
+            }
+        }
+
+        function addWord() {
+            if (entries.length > 0) {
+                var i = Math.floor(Math.random() * entries.length);
+                makeWord(entries[i])
+            }
+        }
+
+        function Word(_str, _x, _y, _vx, _vy, _size, _color, _url) {
+            var obj = this;
+            obj.size = _size;
+            obj.x = _x;
+            obj.y = _y;
+            obj.vx = _vx;
+            obj.vy = _vy;
+            obj.g = 2.5;
+            obj.h = 1.0;
+            obj.str = _str;
+            obj.color = _color;
+            obj.url = _url;
+            obj.update = function () {
+                if (obj.y >= c_h - obj.size / 2) {
+                    obj.y = c_h - obj.size / 2;
+                    obj.vy = -obj.vy * obj.h + obj.g;
+                    if (obj.vy >= 0) obj.vy = 0;
+                } else {
+                    obj.vy = obj.vy + obj.g;
+                }
+                obj.y = obj.y + obj.vy;
+                obj.x = obj.x + obj.vx;
+            }
+            obj.dead = function () {
+                if (obj.y < 0 - 20 || obj.x < 0 - 20 || obj.x > c_w + 20) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        function put(obj) {
+            ctx.beginPath()
+            ctx.fillStyle = obj.color;
+            ctx.font = obj.size + "px 'Monotype Corsiva'";
+            ctx.fillText(obj.str, obj.x, obj.y);
+            ctx.fill();
+        }
+
+        function makeWord(entry) {
+            var vx = Math.floor(-10 + Math.random() * -1 * (c_w / 40));
+            var vy = Math.floor(Math.random() * -1 * (c_h / 20));
+            var h = Math.floor(50 + Math.random() * (c_h - 50));
+            var size = (20 + Math.random() * 26 | 0);
+            var color = COLORS[Math.floor(Math.random() * COLORS.length)];
+            var str = entry.title;
+            var url = entry.link;
+            if (h > (c_h * 0.7)) {
+                vy *= -1;
+            }
+
+            switch (true) {
+            case str.length < 10:
+                size += 3;
+                vx += 4;
+                break;
+            case str.length < 20:
+                break;
+            case str.length < 30:
+                size -= 3;
+                vx -= 5;
+                break;
+            case str.length < 40:
+                size -= 5;
+                vx -= 10;
+                break;
+            }
+
+            for (var i = 0; i < str.length; i++) {
+                addWord(str[i]);
+            }
+
+            function addWord(s) {
+                setTimeout(function () {
+                    objs.push(new Word(s, c_w, h, vx, vy, size, color, url))
+                }, i * 150);
+            }
+        }
+
+        function getParam() {
+            var obj = new Object();
+            if (1 < document.location.search.length) {
+                var paramstr = document.location.search.substring(1).split('&');
+                for (var i = 0; i < paramstr.length; i++) {
+                    var entry = paramstr[i].split('=');
+                    var key = decodeURIComponent(entry[0]);
+                    var value = decodeURIComponent(entry[1]);
+                    obj[key] = decodeURIComponent(value);
+                }
+            }
+            return obj;
+        }
+
+        function sizeChanged() {
+            var w = window;
+            var d = document;
+            canvas.width = w.innerWidth || d.documentElement.clientWidth || d.body.clientWidth;
+            canvas.height = w.innerHeight || d.documentElement.clientHeight || d.body.clientHeight;
+            c_w = canvas.width;
+            c_h = canvas.height;
+        }
+
+        function clicked(e) {
+            if (!e.clientX) { //SmartPhone
+                if (e.touches) {
+                    e = e.originalEvent.touches[0];
+                } else if (e.originalEvent.touches) {
+                    e = e.originalEvent.touches[0];
+                } else {
+                    e = event.touches[0];
+                }
+            }
+            var rect = e.target.getBoundingClientRect();
+            var mouse_x = e.clientX - rect.left;
+            var mouse_y = e.clientY - rect.top;
+
+
+            for (var i = 0; i < objs.length; i++) {
+                var _x = Math.abs(objs[i].x - mouse_x);
+                var _y = Math.abs(objs[i].y - mouse_y);
+                if (_x < objs[i].size && _y < objs[i].size) {
+                    clearInterval(timer);
+                    document.location = objs[i].url;
+                }
+            }
+
+        }
+
+        function keyEnter(e) {
+            if (13 === e.keyCode) {
+                subreElem.blur();
+            }
+        }
+
+        function changeSubre() {
+            var file = document.location.href.split("?")[0];
+            file = file.split("/")[file.split("/").length - 1];
+            var subrestr = subreElem.value.replace("/r/", "");
+            window.history.pushState(null, null, file + "?r=" + subrestr);
+            initialize();
+        }
+
+        function init() {
+            window.onresize = sizeChanged;
+            if ('ontouchstart' in window) {
+                canvas.ontouchstart = clicked;
+            } else {
+                canvas.onclick = clicked;
+            }
+            subreElem.onkeypress = keyEnter;
+            subreElem.onblur = changeSubre;
+
+            var param = getParam()
+            if (param && param["r"]) {
+                subreElem.value = "/r/" + param["r"];
+            }
+
+            google.load("feeds", "1");
+            google.setOnLoadCallback(initialize);
+
+
+            sizeChanged();
+            ctx.clearRect(0, 0, c_w, c_h);
+            ctx.fillStyle = BGCOLOR;
+            ctx.fillRect(0, 0, c_w, c_h)
+            timer = setInterval(main, 50);
+            setInterval(addWord, 3500);
+            setInterval(addWord, 5555);
+
+
+        }
+        init();
+    </script>
+
+
+</body>
+
+</html>

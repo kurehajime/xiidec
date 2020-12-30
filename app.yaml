@@ -1,122 +1,147 @@
-runtime: python27
-api_version: 1
-threadsafe: yes
+runtime: go114
+
 automatic_scaling:
-  min_idle_instances: 1
+  min_idle_instances: 0
   max_instances: 2
 
 handlers:
 
+- url: /markov.html
+  script: auto
+
 - url: /favicon\.ico
   static_files: favicon.ico
   upload: favicon\.ico
-  
+  secure: always
+
 - url: /humans\.txt
   static_files: static/humans.txt
   upload: static/humans\.txt
+  secure: always
 
 - url: /robots\.txt
   static_files: static/robots.txt
   upload: static/robots\.txt
+  secure: always
 
 - url: /colamone/(.*\.(html))
-  static_files: static/colamone/\1
-  upload: static/colamone/(.*\.(html))
+  static_files: colamone/\1
+  upload: colamone/(.*\.(html))
   expiration: "1d"
+  secure: always
 
 - url: /colamone/(.*\.(js|json|map))
-  static_files: static/colamone/\1
-  upload: static/colamone/(.*\.(js|json|map))
+  static_files: colamone/\1
+  upload: colamone/(.*\.(js|json|map))
   expiration: "7d"
+  secure: always
 
 - url: /colamone/(.*\.(css))
-  static_files: static/colamone/\1
-  upload: static/colamone/(.*\.(css))
+  static_files: colamone/\1
+  upload: colamone/(.*\.(css))
   expiration: "14d"
+  secure: always
 
 - url: /colamone/(.*\.(png|gif|jpg))
-  static_files: static/colamone/\1
-  upload: static/colamone/(.*\.(png|gif|jpg|woff|woff2))
+  static_files: colamone/\1
+  upload: colamone/(.*\.(png|gif|jpg|woff|woff2))
   expiration: "60d"
+  secure: always
   
 - url: /colamone/(.*\.(woff|woff2))
-  static_files: static/colamone/\1
-  upload: static/colamone/(.*\.(png|gif|jpg|woff|woff2))
+  static_files: colamone/\1
+  upload: colamone/(.*\.(png|gif|jpg|woff|woff2))
   expiration: "120d"
+  secure: always
   
 
 - url: /ozero/(.*\.(html|js|css|png|gif|json))
   static_files: static/ozero/\1
   upload: static/ozero/(.*\.(html|js|css|png|gif|json))
+  secure: always
 
 - url: /colamone_vs/(.*\.(html|js|css))
   static_files: static/colamone_vs/\1
   upload: static/colamone_vs/(.*\.(html|js|css))
+  secure: always
 
 - url: /colamone_beta/(.*\.(html|js|css|png|gif))
   static_files: static/colamone_beta/\1
   upload: static/colamone_beta/(.*\.(html|js|css|png|gif))
+  secure: always
 
 - url: /myboardgame/boardgame.html
   static_files: static/colamone/colamone.html
   upload: static/colamone/(.*\.(html|js|css))
+  secure: always
 
 - url: /myboardgame/(.*\.(html|js|css|gif))
   static_files: static/colamone/\1
   upload: static/colamone/(.*\.(html|js|css|gif))
+  secure: always
 
 - url: /google9bb6b05fe7c75d83.html
   static_files: static/google9bb6b05fe7c75d83.html
   upload: static/google9bb6b05fe7c75d83.html
+  secure: always
   
 - url: /BingSiteAuth.xml
   static_files: static/BingSiteAuth.xml
   upload: static/BingSiteAuth.xml
+  secure: always
 
 - url: /markov2.html
   static_files: static/markov2.html
   upload: static/markov2.html
+  secure: always
   
 - url: /reddihop.html
   static_files: static/reddihop.html
   upload: static/reddihop.html
+  secure: always
 
 - url: /gifpzl.html
   static_files: static/gifpzl.html
   upload: static/gifpzl.html
+  secure: always
 
-- url: /(.*\.(gif|png|jpg|js|css|wav|zip))
+- url: /(.*\.(gif|png|jpg|js|css|wav|zip|html|woff|woff2|map|ico))
   static_files: static/\1
-  upload: static/(.*\.(gif|png|jpg|js|css|wav|zip))
+  upload: static/(.*\.(gif|png|jpg|js|css|wav|zip|html|woff|woff2|map|ico))
+  secure: always
 
 - url: /sample/(.*\.(html))
   static_files: static/sample/\1
   upload: static/sample/(.*\.(html))
+  secure: always
 
 - url: /jasmine/(.*)
   static_files: static/jasmine/\1
   upload: static/jasmine/(.*)
+  secure: always
 
-- url: /test\.html
-  script: test.app
+- url: /(.+)/
+  static_files: static/\1/index.html
+  upload: static/(.+)/index.html
+  secure: always
 
-- url: /hello\.html
-  script: hello.app
+- url: /(.+)
+  static_files: static/\1/index.html
+  upload: static/(.+)/index.html
+  secure: always
 
-- url: /markov\.html
-  script: markov.app
- 
-- url: /vschart\.html
-  script: vschart.app
-  
-- url: /abface\.html
-  script: abface.app
-  
-- url: .*
-  script: main.app
-libraries:
-- name: webapp2
-  version: "2.5.2"
-  
+- url: /_ah/warmup
+  static_files: static/warmup.html
+  upload: static/warmup.html
+  secure: always
+
+- url: /
+  static_files: static/index.html
+  upload: static/index.html
+  secure: always
+
+- url: /.*
+  script: auto
+
 inbound_services:
 - warmup

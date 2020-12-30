@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title> 限りなく豆腐に近い豆腐ではない何か</title>
+    <link>https://xiidec.appspot.com/</link>
+    <description>Recent content on  限りなく豆腐に近い豆腐ではない何か</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Wed, 01 Jan 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://xiidec.appspot.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Colamone</title>
+      <link>https://xiidec.appspot.com/portfolio/work1/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiidec.appspot.com/portfolio/work1/</guid>
+      <description>&lt;p&gt;将棋・チェスに似たWebで遊べるボードゲーム&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Pongout</title>
+      <link>https://xiidec.appspot.com/portfolio/work2/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiidec.appspot.com/portfolio/work2/</guid>
+      <description>&lt;p&gt;Pongとブロック崩しが同時遊べるゲーム&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>pong-command</title>
+      <link>https://xiidec.appspot.com/portfolio/work3/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiidec.appspot.com/portfolio/work3/</guid>
+      <description>&lt;p&gt;pingの代わりにpongが遊べるコマンド&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>dajarep</title>
+      <link>https://xiidec.appspot.com/portfolio/work4/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiidec.appspot.com/portfolio/work4/</guid>
+      <description>&lt;p&gt;ダジャレが検出できるコマンド&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Re:vuesi</title>
+      <link>https://xiidec.appspot.com/portfolio/work5/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiidec.appspot.com/portfolio/work5/</guid>
+      <description>&lt;p&gt;Vue.js+SVGでつくったオセロ&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ttrs</title>
+      <link>https://xiidec.appspot.com/portfolio/work6/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiidec.appspot.com/portfolio/work6/</guid>
+      <description>&lt;p&gt;ただ華やかなだけのテトリス&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>cmprss</title>
+      <link>https://xiidec.appspot.com/portfolio/work7/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiidec.appspot.com/portfolio/work7/</guid>
+      <description>&lt;p&gt;テキストを非可逆圧縮するコマンド&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>pera</title>
+      <link>https://xiidec.appspot.com/portfolio/work8/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiidec.appspot.com/portfolio/work8/</guid>
+      <description>&lt;p&gt;コマンドラインでプレゼンするツール&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>rebbot</title>
+      <link>https://xiidec.appspot.com/portfolio/work9/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiidec.appspot.com/portfolio/work9/</guid>
+      <description>&lt;p&gt;RedditのユーザーコメントからBOTを自動生成。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>gifpzl</title>
+      <link>https://xiidec.appspot.com/portfolio/work10/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiidec.appspot.com/portfolio/work10/</guid>
+      <description>&lt;p&gt;ランダムな猫動画でパズルが遊べるやつ。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>vdopzl</title>
+      <link>https://xiidec.appspot.com/portfolio/work11/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiidec.appspot.com/portfolio/work11/</guid>
+      <description>&lt;p&gt;WEBカメラでパズルが遊べるやつ。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>AくんBくん</title>
+      <link>https://xiidec.appspot.com/portfolio/work12/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiidec.appspot.com/portfolio/work12/</guid>
+      <description>&lt;p&gt;Aくん? or Bくん?&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>比較くん</title>
+      <link>https://xiidec.appspot.com/portfolio/work13/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiidec.appspot.com/portfolio/work13/</guid>
+      <description>&lt;p&gt;今WEBで話題なのはどっち？&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>要約くん</title>
+      <link>https://xiidec.appspot.com/portfolio/work14/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiidec.appspot.com/portfolio/work14/</guid>
+      <description>&lt;p&gt;今日のニュースを要約する&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>らくがきくん</title>
+      <link>https://xiidec.appspot.com/portfolio/work15/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiidec.appspot.com/portfolio/work15/</guid>
+      <description>&lt;p&gt;写真に落書きする&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>flagstone</title>
+      <link>https://xiidec.appspot.com/portfolio/work16/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiidec.appspot.com/portfolio/work16/</guid>
+      <description>&lt;p&gt;Go言語製のCUIツールを１行でWeb GUI化するライブラリ&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>cjk2num</title>
+      <link>https://xiidec.appspot.com/portfolio/work17/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiidec.appspot.com/portfolio/work17/</guid>
+      <description>&lt;p&gt;Go言語製のCUIツールを１行でWeb GUI化するライブラリ。
+Convert /漢数字|中文数字|한자 숫자/ to number.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>TextConverter</title>
+      <link>https://xiidec.appspot.com/portfolio/work18/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiidec.appspot.com/portfolio/work18/</guid>
+      <description>&lt;p&gt;いろんなテキスト変換処理ができるWindowsプログラム&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ポリゴンマン</title>
+      <link>https://xiidec.appspot.com/portfolio/work19/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiidec.appspot.com/portfolio/work19/</guid>
+      <description>&lt;p&gt;自分の顔がポリゴンみたいな感じになる&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>voisnake</title>
+      <link>https://xiidec.appspot.com/portfolio/work20/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiidec.appspot.com/portfolio/work20/</guid>
+      <description>&lt;p&gt;音声認識で命令して餌を食べよう&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>anony</title>
+      <link>https://xiidec.appspot.com/portfolio/work21/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiidec.appspot.com/portfolio/work21/</guid>
+      <description>&lt;p&gt;文章に含まれる人物名を匿名にするよ&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

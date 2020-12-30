@@ -1,0 +1,101 @@
+<HTML>
+  <HEAD>
+        <meta name="viewport" content="width=device-width">
+        <style type="text/css">
+        </style>
+    <Script>
+var audio = new Audio();
+audio.src = "etc/pi.wav";
+var dict = {
+	"a":"10111",
+	"b":"111010101",
+	"c":"11101011101",
+	"d":"1110101",
+	"e":"1",
+	"f":"101011101",
+	"g":"111011101",
+	"h":"1010101",
+	"i":"101",
+	"j":"1011101110111",
+	"k":"111010111",
+	"l":"101110101",
+	"m":"1110111",
+	"n":"11101",
+	"o":"11101110111",
+	"p":"10111011101",
+	"q":"1110111010111",
+	"r":"1011101",
+	"s":"10101",
+	"t":"111",
+	"u":"1010111",
+	"v":"101010111",
+	"w":"101110111",
+	"x":"11101010111",
+	"y":"1110101110111",
+	"z":"11101110101",
+	"1":"10111011101110111",
+	"2":"101011101110111",
+	"3":"1010101110111",
+	"4":"10101010111",
+	"5":"101010101",
+	"6":"11101010101",
+	"7":"1110111010101",
+	"8":"111011101110101",
+	"9":"11101110111011101",
+	"0":"1110111011101110111",
+	".":"10111010111010111",
+	",":"1110111010101110111",
+	"?":"101011101110101",
+	"!":"1110101110101110111",
+	"-":"111010101010111",
+	"/":"1110101011101",
+	"@":"10111011101011101",
+	"(":"111010111011101",
+	")":"1110101110111010111",
+	" ":"0"
+}
+function morse(){
+	var morse_str=conv(document.getElementById("inp").value)
+	play_sound(morse_str)
+}
+function conv(word_str){
+	var strs = word_str.toLowerCase().split('');
+	var rtn ="";
+	for(var i =0;i<=strs.length-1;i++){
+		if(dict[strs[i]]===undefined){
+		}else{
+			rtn+=dict[strs[i]]+"000";
+		}
+	}
+	return rtn;
+}
+function play_sound(morse){
+	var mstrs=morse.split('');
+	var mesEle=document.getElementById("mes");
+	mesEle.value="";
+	var timer=setInterval(function(){
+			audio.currentTime = 0;
+			if(mstrs.length<=0){
+				audio.pause();
+				clearInterval(timer);
+				return;
+			}
+			var onoff=mstrs.shift();
+			if(onoff=="0"){
+				audio.pause();
+			}else{
+				audio.play();
+			}
+			mesEle.value=mesEle.value+onoff;
+	},100)
+}
+    </Script>
+  </HEAD>
+<BODY onLoad="">
+<h1>モールス信号変換</h1>
+入力値:<input type="text" id="inp" value="SOS" size="35"><input type="button" value="変換" onclick="morse()"><br>
+↓</br>
+<textarea id="mes" rows="4" cols="40" wrap="soft"></textarea><br>
+<A Href="http://musicisvfr.com/">素材:Music is VFR</A>
+</BODY>
+</HTML>

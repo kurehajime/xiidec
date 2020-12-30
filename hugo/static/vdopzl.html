@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width">
+		<title>ビデオパズル</title>
+		<style>
+			video{
+				display:none;
+			}
+			body {
+				background-color:#AAAAAA;
+				border-collapse:collapse;
+			}
+			#table {display:table; }
+			.row {display:table-row;}
+			.row>div {
+				display:table-cell;
+				border:1px solid white;
+				line-height: 0px;
+			}
+			.BLANK{opacity: 0.3;}
+		</style>
+	</head>
+	<body onload="init()">
+		<div id="main">
+			<h1>ビデオパズル</h1>
+			<video autoplay width="640" height="480" alt="カメラを許可してね。" ></video><br/>
+			<div id="table">
+				<div class="row">
+					<div id="0" class="CELL A" onClick="clickPanel(this,1)"><canvas class="canvcell"></canvas></div> 
+					<div id="1" class="CELL B" onClick="clickPanel(this,1)"><canvas class="canvcell"></canvas></div>
+					<div id="2" class="CELL C" onClick="clickPanel(this,1)"><canvas class="canvcell"></canvas></div>
+				</div>
+				<div class="row">
+					<div id="3" class="CELL D" onClick="clickPanel(this,1)"><canvas class="canvcell"></canvas></div> 
+					<div id="4" class="CELL E" onClick="clickPanel(this,1)"><canvas class="canvcell"></canvas></div>
+					<div id="5" class="CELL F" onClick="clickPanel(this,1)"><canvas class="canvcell"></canvas></div>
+				</div>
+				<div class="row">
+					<div id="6" class="CELL G" onClick="clickPanel(this,1)"><canvas class="canvcell"></canvas></div> 
+					<div id="7" class="CELL H" onClick="clickPanel(this,1)"><canvas class="canvcell"></canvas></div>
+					<div id="8" class="CELL I BLANK" onClick="clickPanel(this,1)"><canvas class="canvcell"></canvas></div>
+				</div>
+			</div>
+			
+			
+		</div>
+		<script>
+			var video = document.querySelector('video');
+			var canvas = document.getElementById('canv');
+			var canvA,canvB,canvC,canvD,canvE,canvF,canvG,canvH,canvI;
+			var colCount=3;
+			var answer=""
+			
+			function capt(e){
+				var cell_H=parseInt(video.videoHeight/3)
+				var cell_W=parseInt(video.videoWidth/3);
+				canvA.canvas.width=cell_W;canvA.canvas.height=cell_H;
+				canvB.canvas.width=cell_W;canvB.canvas.height=cell_H;
+				canvC.canvas.width=cell_W;canvC.canvas.height=cell_H;
+				canvD.canvas.width=cell_W;canvD.canvas.height=cell_H;
+				canvE.canvas.width=cell_W;canvE.canvas.height=cell_H;
+				canvF.canvas.width=cell_W;canvF.canvas.height=cell_H;
+				canvG.canvas.width=cell_W;canvG.canvas.height=cell_H;
+				canvH.canvas.width=cell_W;canvH.canvas.height=cell_H;
+				canvI.canvas.width=cell_W;canvI.canvas.height=cell_H;
+				
+				canvA.drawImage(video, cell_W*0, cell_H*0,cell_W,cell_H,0,0,cell_W,cell_H);
+				canvB.drawImage(video, cell_W*1, cell_H*0,cell_W,cell_H,0,0,cell_W,cell_H);
+				canvC.drawImage(video, cell_W*2, cell_H*0,cell_W,cell_H,0,0,cell_W,cell_H);
+				canvD.drawImage(video, cell_W*0, cell_H*1,cell_W,cell_H,0,0,cell_W,cell_H);
+				canvE.drawImage(video, cell_W*1, cell_H*1,cell_W,cell_H,0,0,cell_W,cell_H);
+				canvF.drawImage(video, cell_W*2, cell_H*1,cell_W,cell_H,0,0,cell_W,cell_H);
+				canvG.drawImage(video, cell_W*0, cell_H*2,cell_W,cell_H,0,0,cell_W,cell_H);
+				canvH.drawImage(video, cell_W*1, cell_H*2,cell_W,cell_H,0,0,cell_W,cell_H);
+				canvI.drawImage(video, cell_W*2, cell_H*2,cell_W,cell_H,0,0,cell_W,cell_H);	
+			}
+			function getCellCTX(){
+				canvA=document.getElementsByClassName("A")[0].lastChild.getContext('2d')
+				canvB=document.getElementsByClassName("B")[0].lastChild.getContext('2d')
+				canvC=document.getElementsByClassName("C")[0].lastChild.getContext('2d')
+				canvD=document.getElementsByClassName("D")[0].lastChild.getContext('2d')
+				canvE=document.getElementsByClassName("E")[0].lastChild.getContext('2d')
+				canvF=document.getElementsByClassName("F")[0].lastChild.getContext('2d')
+				canvG=document.getElementsByClassName("G")[0].lastChild.getContext('2d')
+				canvH=document.getElementsByClassName("H")[0].lastChild.getContext('2d')
+				canvI=document.getElementsByClassName("I")[0].lastChild.getContext('2d')
+			}
+			//タップしたパネルとブランクパネルを入れ替える。
+			function clickPanel(tapPanel,testFlag){
+				var tempClassName="";
+				var blankPanel =document.getElementsByClassName("BLANK")[0];
+				//パネル番号を３で割った余りが等しい＝縦列が一緒。パネル番号を３で割った数が等しい＝横行が一緒。
+			if((tapPanel.id % colCount==blankPanel.id % colCount && Math.abs(Math.floor(tapPanel.id / colCount )-Math.floor(blankPanel.id / colCount ))==1)
+					||
+			(Math.floor(tapPanel.id / colCount )==Math.floor(blankPanel.id / colCount )&& Math.abs((tapPanel.id % colCount)-(blankPanel.id % colCount))==1)
+					){
+					//クラスを入れ替える。
+					tempClassName=tapPanel.className;
+					tapPanel.className=blankPanel.className;
+					blankPanel.className=tempClassName;
+				}
+				getCellCTX();
+				if(testFlag && test()){
+					window.setTimeout(function(){alert("おめでとう!")},100)
+				}
+			}
+			function shuffle(count){
+				var prevBlank=document.getElementsByClassName("BLANK")[0];
+				for(i=0;i<=64;i++){
+				rand=Math.floor( Math.random() * 9)
+				if(prevBlank.id!=rand){//Fix:752
+					clickPanel(document.getElementById(rand),0);
+				}
+					prevBlank=document.getElementsByClassName("BLANK")[0];
+				}
+			}
+			function test(){
+				var nowans=""
+				for(i=0;i<=8;i++){
+					nowans+=document.getElementById(i).className;
+				}
+				if(answer==nowans){
+					return 1;
+				}else{
+					return 0;
+				}
+			}
+			
+			function init(e) {
+			//動画をセット
+			window.URL = window.URL || window.webkitURL;
+			navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia ||navigator.mozGetUserMedia || navigator.msGetUserMedia;
+			navigator.getUserMedia({video: true}, function(stream) {
+				//video.src = window.URL.createObjectURL(stream);
+				video.srcObject = stream;
+				localMediaStream = stream;
+				getCellCTX()
+				setInterval(capt,66)
+				},function(){alert("WEBカメラにアクセスできないよ！")});
+				for(i=0;i<=8;i++){
+					answer+= document.getElementById(i).className;
+				} 
+				shuffle();
+			}
+		</script>
+</body>
+</html>

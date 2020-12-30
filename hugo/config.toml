@@ -1,0 +1,24 @@
+baseURL = "https://xiidec.appspot.com"
+languageCode = "ja-JP"
+title = " 限りなく豆腐に近い豆腐ではない何か"
+theme = "hugo-creative-portfolio-theme"
+publishDir  = "../static"
+[[params.navlinks]]
+name = "Home"
+url = "portfolio/"
+home = true
+[[params.navlinks]]
+name = "About"
+url = "about/"
+[params]
+  # Style options: default (pink), blue, green, pink, red, sea, violet
+  # Use custom.css for your custom styling
+  style = "blue"
+  description = "おおむね豆腐と言っても差支えはない。"
+  copyright = "(c)2014–2021 @kurehajime. All Rights Reserved. "
+  sidebarAbout = [
+    "おおむね豆腐と言っても差支えはない。"
+  ]
+[params.social]
+twitter       = "https://twitter.com/kurehajime"
+github        = "https://github.com/kurehajime"
