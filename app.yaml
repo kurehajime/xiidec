@@ -30,9 +30,9 @@ handlers:
   expiration: "1d"
   secure: always
 
-- url: /colamone/(.*\.(js|json|map))
+- url: /colamone/(.*\.(js|json))
   static_files: colamone/\1
-  upload: colamone/(.*\.(js|json|map))
+  upload: colamone/(.*\.(js|json))
   expiration: "7d"
   secure: always
 
@@ -40,6 +40,12 @@ handlers:
   static_files: colamone/\1
   upload: colamone/(.*\.(css))
   expiration: "14d"
+  secure: always
+
+- url: /colamone
+  static_files: colamone
+  upload: colamone
+  expiration: "1d"
   secure: always
 
 - url: /colamone/(.*\.(png|gif|jpg))
