@@ -4,7 +4,7 @@ draft = false
 image = "img/ttrs.gif"
 date = "2020-01-01T00:00:00+00:00"
 title = "ttrs"
-weight = 6
+weight = 3
 +++
 
 ただ華やかなだけのテトリス
