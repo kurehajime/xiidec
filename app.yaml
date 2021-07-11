@@ -69,6 +69,7 @@ handlers:
 - url: /colamone_vs/(.*\.(html|js|css))
   static_files: static/colamone_vs/\1
   upload: static/colamone_vs/(.*\.(html|js|css))
+  expiration: "1d"
   secure: always
 
 - url: /colamone_beta/(.*\.(html|js|css|png|gif))
