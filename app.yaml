@@ -1,4 +1,4 @@
-runtime: go114
+runtime: go115
 
 automatic_scaling:
   min_idle_instances: 0
@@ -25,10 +25,7 @@ handlers:
   secure: always
 
 - url: /colamone/(.*\.(html))
-  static_files: colamone/\1
-  upload: colamone/(.*\.(html))
-  expiration: "1d"
-  secure: always
+  script: auto
 
 - url: /colamone/(.*\.(js|json))
   static_files: colamone/\1
